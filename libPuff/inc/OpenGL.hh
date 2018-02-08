@@ -1,13 +1,16 @@
-//
-//  OpenGL.hh
-//  bomberman
-//
-//  Created by bobbyghetto on 08/02/2018.
-//  Copyright © 2018 bobbyghetto. All rights reserved.
-//
+#pragma once
 
-#ifndef OpenGL_h
-#define OpenGL_h
+# include <GL/glew.h>
 
+#ifdef _WIN32
+# include <Windows.h>
+# include <GL\GL.h>
+# include <GL\GLU.h>
+# include <GL\glext.h>
+#elif __APPLE__
+#
+#else
+# include <GL/gl.h>
+# include <GL/glu.h>
+#endif
 
-#endif /* OpenGL_h */

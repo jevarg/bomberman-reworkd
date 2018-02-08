@@ -1,8 +1,8 @@
 #ifndef _TRANSFORMATION_HPP_
 # define _TRANSFORMATION_HPP_
 
-# include "glm/glm.hpp"
-# include "glm/gtc/matrix_transform.hpp"
+# include <glm/glm.hpp>
+# include <glm/gtc/matrix_transform.hpp>
 
 class ATransformation
 {

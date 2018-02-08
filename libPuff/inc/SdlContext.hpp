@@ -3,7 +3,7 @@
 #include "IRenderContext.hpp"
 
 #include <iostream>
-#include <GL/glew.h>
+#include <OpenGL.hh>
 
 #undef main
 

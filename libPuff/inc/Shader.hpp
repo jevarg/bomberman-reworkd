@@ -6,15 +6,9 @@
 # include <string>
 # include <fstream>
 # include <map>
-
-# include "glm/glm.hpp"
-# include "glm/gtc/type_ptr.hpp"
-
-#ifdef _WIN32
-# include <GL/glew.h>
-#else
-# include <OpenGL/gl3.h>
-#endif
+# include <OpenGL.hh>
+# include <glm/glm.hpp>
+# include <glm/gtc/type_ptr.hpp>
 
 namespace puff
 {
