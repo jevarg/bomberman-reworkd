@@ -1,6 +1,7 @@
 #ifndef _MUTEX_H_
 # define _MUTEX_H_
 
+# define HAVE_STRUCT_TIMESPEC
 # include <pthread.h>
 
 class Mutex

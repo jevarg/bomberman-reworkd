@@ -22,7 +22,7 @@ void	ImageWidget::onClick(t_gameinfo &/*gameInfo*/, Menu &/*menu*/)
 {
 }
 
-void	ImageWidget::draw(gdl::AShader &shader, const gdl::Clock &clock)
+void	ImageWidget::draw(puff::AShader &shader, const puff::Clock &clock)
 {
   _square->fillGeometry();
   _square->draw(shader, clock);

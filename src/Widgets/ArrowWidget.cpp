@@ -24,7 +24,7 @@ void	ArrowWidget::onClick(t_gameinfo &gameInfo, Menu &menu)
     ++menu;
 }
 
-void	ArrowWidget::draw(gdl::AShader &shader, const gdl::Clock &clock)
+void	ArrowWidget::draw(puff::AShader &shader, const puff::Clock &clock)
 {
   _square->fillGeometry();
   _square->draw(shader, clock);

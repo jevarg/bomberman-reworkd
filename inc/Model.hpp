@@ -1,8 +1,8 @@
 #ifndef _MODEL_H_
 # define _MODEL_H_
 
-# include <Model.hh>
-# include <Texture.hh>
+# include <Model.hpp>
+# include <Texture.hpp>
 # include <string>
 # include "IObject.hpp"
 # include "Exception.hpp"
@@ -18,16 +18,16 @@ public:
   bool		initialize();
   bool		load(std::string const&);
 
-  void		draw(gdl::AShader &, gdl::Clock const&) const;
+  void		draw(puff::AShader &, puff::Clock const&) const;
 
-  void		setTexture(gdl::Texture *);
+  void		setTexture(puff::Texture *);
 
   IObject	*clone() const;
 
-  gdl::Model	*getModel();
+  puff::Model	*getModel();
 
 private:
-  gdl::Model	*_obj;
+  puff::Model	*_obj;
 };
 
 #endif /* !_MODEL_H_ */

@@ -13,7 +13,7 @@ Light::~Light()
 
 }
 
-void Light::render(gdl::BasicShader &shader)
+void Light::render(puff::BasicShader &shader)
 {
   std::stringstream ss("");
 

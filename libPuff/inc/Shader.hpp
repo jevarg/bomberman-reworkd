@@ -9,7 +9,12 @@
 
 # include "glm/glm.hpp"
 # include "glm/gtc/type_ptr.hpp"
+
+#ifdef _WIN32
+# include <GL/glew.h>
+#else
 # include <OpenGL/gl3.h>
+#endif
 
 namespace puff
 {

@@ -2,7 +2,11 @@
 
 #include <vector>
 #include <iostream>
-#include <OpenGL/gl3.h>
+#ifdef _WIN32
+# include <GL/glew.h>
+#else
+# include <OpenGL/gl3.h>
+#endif
 
 #include "glm/glm.hpp"
 #include "Shader.hpp"

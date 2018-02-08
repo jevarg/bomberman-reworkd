@@ -26,7 +26,7 @@ ACharacter::~ACharacter()
 {
 }
 
-bool	ACharacter::updatePosition(Map *map, eAction action, gdl::Clock *clock)
+bool	ACharacter::updatePosition(Map *map, eAction action, puff::Clock *clock)
 {
   eAction	tab[4] = {FORWARD, BACK, LEFT, RIGHT};
   eDir		tabdir[4] = {SOUTH, NORTH, EAST, WEST};

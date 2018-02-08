@@ -1,8 +1,8 @@
 #ifndef _AENTITY_HPP_
 # define _AENTITY_HPP_
 
-# include <Clock.hh>
-# include <BasicShader.hh>
+# include <Clock.hpp>
+# include <BasicShader.hpp>
 # include "IObject.hpp"
 # include "Input.hpp"
 # include "Model.hpp"
@@ -58,7 +58,7 @@ public:
   void		setYPos(const int &y);
   void		setType(const eType &type);
   bool		toDestroy() const;
-  void		draw(gdl::AShader &shader, gdl::Clock &clock);
+  void		draw(puff::AShader &shader, puff::Clock &clock);
   int		getDeathTime() const;
   void		decTimeDeath();
 

@@ -1,3 +1,9 @@
+# ifdef _WIN32
+#  include <io.h>
+# else
+#  include <unistd.h>
+# endif // WIN32
+
 #include <iostream>
 #include "SdlContext.hpp"
 //#include "Menu.hpp"
@@ -6,7 +12,6 @@
 //#include "Menu.hpp"
 //#include "Exception.hpp"
 //#include "Player.hpp"
-#include <unistd.h>
 //#include "AObject.hpp"
 //#include "Shader.hpp"
 //#include "Cube.hpp"
@@ -17,7 +22,7 @@ int	main()
 {
     int	seed;
     
-    __asm__ volatile ("rdtsc" : "=A" (seed));
+//    __asm__ volatile ("rdtsc" : "=A" (seed));
     std::srand(seed);
     
     puff::SdlContext *context = new puff::SdlContext();

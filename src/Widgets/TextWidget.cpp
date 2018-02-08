@@ -11,7 +11,7 @@ TextWidget::~TextWidget()
 
 }
 
-void	TextWidget::draw(gdl::AShader &shader, const gdl::Clock &clock)
+void	TextWidget::draw(puff::AShader &shader, const puff::Clock &clock)
 {
   _text.draw(shader, clock);
 }

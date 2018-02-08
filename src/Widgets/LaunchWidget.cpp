@@ -22,7 +22,7 @@ void	LaunchWidget::onClick(t_gameinfo &/*gameInfo*/, Menu &menu)
   menu.setCurrentPanel(_onClickPanel);
 }
 
-void	LaunchWidget::draw(gdl::AShader &shader, const gdl::Clock &clock)
+void	LaunchWidget::draw(puff::AShader &shader, const puff::Clock &clock)
 {
   _square->fillGeometry();
   _square->draw(shader, clock);

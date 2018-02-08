@@ -1,10 +1,15 @@
+# ifdef _WIN32
+#  include <io.h>
+# else
+#  include <unistd.h>
+# endif // WIN32
+
 #include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include "GameEngine.hpp"
 #include "Menu.hpp"
 #include "Exception.hpp"

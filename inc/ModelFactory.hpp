@@ -4,7 +4,7 @@
 # include <string>
 # include <vector>
 # include <map>
-# include <Texture.hh>
+# include <Texture.hpp>
 # include "Model.hpp"
 # include "IObject.hpp"
 # include "AEntity.hpp"
@@ -27,7 +27,7 @@ private:
 
   ModelFactory();
   virtual ~ModelFactory();
-  std::map<std::string, gdl::Texture*> _texture;
+  std::map<std::string, puff::Texture*> _texture;
   std::map<eType, IObject *> _model;
 };
 

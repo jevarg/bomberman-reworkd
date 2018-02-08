@@ -2,7 +2,7 @@
 #include "Console.hpp"
 #include "Settings.hpp"
 
-Console::Console(Settings &set, Input &input, gdl::Clock &clock, gdl::AShader &shader): _set(set), _input(input), _clock(clock), _shader(shader)
+Console::Console(Settings &set, Input &input, puff::Clock &clock, puff::AShader &shader): _set(set), _input(input), _clock(clock), _shader(shader)
 {
   _buf = "";
   _ret = "";
@@ -28,7 +28,7 @@ void	Console::print(Text &text, int winY)
     }
 }
 
-void	Console::handleClock(const gdl::SdlContext &win, int &frame,
+void	Console::handleClock(const puff::SdlContext &win, int &frame,
 			     double &time, double fps)
 {
   time = _clock.getElapsed();
@@ -38,7 +38,7 @@ void	Console::handleClock(const gdl::SdlContext &win, int &frame,
   win.updateClock(_clock);
 }
 
-bool	Console::aff(const gdl::SdlContext &win, float winX, float winY)
+bool	Console::aff(const puff::SdlContext &win, float winX, float winY)
 {
   Text		text;
   double	fps = 1000.0 / 25.0;

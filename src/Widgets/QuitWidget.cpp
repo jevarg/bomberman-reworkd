@@ -18,7 +18,7 @@ void	QuitWidget::onClick(t_gameinfo &/*gameInfo*/, Menu &menu)
   menu.setDone(true);
 }
 
-void	QuitWidget::draw(gdl::AShader &shader, const gdl::Clock &clock)
+void	QuitWidget::draw(puff::AShader &shader, const puff::Clock &clock)
 {
   _square->fillGeometry();
   _square->draw(shader, clock);

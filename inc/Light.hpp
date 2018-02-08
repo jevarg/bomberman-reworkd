@@ -2,7 +2,7 @@
 # define _LIGHT_HPP_
 
 # include <glm/glm.hpp>
-# include <BasicShader.hh>
+# include <BasicShader.hpp>
 
 enum eLight
   {
@@ -16,7 +16,7 @@ public:
   Light(int id, eLight type, glm::vec3 color, glm::vec3 pos, float power);
   virtual ~Light();
 
-  void render(gdl::BasicShader &shader);
+  void render(puff::BasicShader &shader);
 
 private:
   int	    _id;

@@ -27,7 +27,7 @@ bool		Model::initialize()
   return (true);
 }
 
-void	Model::draw(gdl::AShader &shader, gdl::Clock const& clock) const
+void	Model::draw(puff::AShader &shader, puff::Clock const& clock) const
 {
   _obj->draw(shader, getTransformation(), clock.getElapsed());
 }
@@ -36,18 +36,18 @@ bool		Model::load(std::string const& path)
 {
   if (_obj != NULL)
     delete _obj;
-  _obj = new gdl::Model();
+  _obj = new puff::Model();
   if (!_obj->load(path))
     return (false);
   _obj->setCurrentAnim(0, true);
   return (true);
 }
 
-void		Model::setTexture(gdl::Texture *)
+void		Model::setTexture(puff::Texture *)
 {
 }
 
-gdl::Model	*Model::getModel()
+puff::Model	*Model::getModel()
 {
   return (_obj);
 }

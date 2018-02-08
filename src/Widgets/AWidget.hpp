@@ -27,7 +27,7 @@ public:
   virtual void	init(const Settings * const set);
   virtual void	onDisplay(const std::list<std::string> &text, int filePos);
   virtual void	onClick(t_gameinfo &gameInfo, Menu &menu) = 0;
-  virtual void	draw(gdl::AShader &shader, const gdl::Clock &clock) = 0;
+  virtual void	draw(puff::AShader &shader, const puff::Clock &clock) = 0;
 
   void		setSquare(Square *);
   Square	*getSquare() const;

@@ -2,7 +2,7 @@
 #include <cmath>
 #include "GameEngine.hpp"
 
-GameEngine::GameEngine(gdl::SdlContext *win, gdl::BasicShader *textShader, t_gameinfo *gameInfo)
+GameEngine::GameEngine(puff::SdlContext *win, puff::BasicShader *textShader, t_gameinfo *gameInfo)
   : _win(win), _shader(), _textShader(textShader),
     _gameInfo(gameInfo), _lights(), _players()
 {

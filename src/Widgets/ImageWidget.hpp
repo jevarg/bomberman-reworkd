@@ -10,7 +10,7 @@ public:
   ImageWidget(int x, int y, int height, int width, const std::string &texture);
   ~ImageWidget();
 
-  virtual void	draw(gdl::AShader &shader, const gdl::Clock &clock);
+  virtual void	draw(puff::AShader &shader, const puff::Clock &clock);
 
   bool	isClicked(int x, int y);
   void	onClick(t_gameinfo &gameInfo, Menu &menu);

@@ -11,7 +11,7 @@ public:
 	      const std::string &texture, int id);
   ~ArrowWidget();
 
-  void	draw(gdl::AShader &shader, const gdl::Clock &clock);
+  void	draw(puff::AShader &shader, const puff::Clock &clock);
   void	onClick(t_gameinfo &gameInfo, Menu &menu);
 
 private:

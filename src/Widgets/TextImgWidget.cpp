@@ -15,7 +15,7 @@ TextImgWidget::~TextImgWidget()
 {
 }
 
-void	TextImgWidget::draw(gdl::AShader &shader, const gdl::Clock &clock)
+void	TextImgWidget::draw(puff::AShader &shader, const puff::Clock &clock)
 {
   _square->fillGeometry();
   _square->draw(shader, clock);

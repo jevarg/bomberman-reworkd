@@ -8,15 +8,21 @@
 
 extern "C"
 {
+
+# ifdef _WIN32
+#  include <io.h>
+# else
+#  include <unistd.h>
+# endif // WIN32
+
 # include <libavcodec/avcodec.h>
 # include <libavformat/avformat.h>
 # include <libswscale/swscale.h>
-# include <unistd.h>
 }
 
-# include <SdlContext.hh>
-# include <OpenGL.hh>
-# include <Clock.hh>
+# include <SdlContext.hpp>
+# include <OpenGL.hpp>
+# include <Clock.hpp>
 
 # include "GameEngine.hpp"
 # include "Input.hpp"
@@ -28,13 +34,13 @@ public:
   ~Intro();
 
   bool initialize(const std::string &file);
-  void play(t_gameinfo &gameInfo, gdl::SdlContext &win, gdl::AShader &shader);
+  void play(t_gameinfo &gameInfo, puff::SdlContext &win, puff::AShader &shader);
 
 private:
   bool nextFrame();
   void generateTexture();
-  bool update(gdl::SdlContext &win, gdl::Clock &clock, Input &input, Settings &set);
-  void draw(gdl::AShader &shader, gdl::SdlContext &win, gdl::Clock clock, float x, float y);
+  bool update(puff::SdlContext &win, puff::Clock &clock, Input &input, Settings &set);
+  void draw(puff::AShader &shader, puff::SdlContext &win, puff::Clock clock, float x, float y);
 
   int		_video;
   GLuint	_texture;

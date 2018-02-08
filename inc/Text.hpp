@@ -2,12 +2,14 @@
 # define _TEXT_H_
 
 # include <string>
-# include <Texture.hh>
-# include <Geometry.hh>
+# include <Texture.hpp>
+# include <Geometry.hpp>
 # include <sstream>
-# include <Clock.hh>
+# include <Clock.hpp>
+# include <AShader.hpp>
 # include "Exception.hpp"
 # include "ATransformation.hpp"
+
 
 # define FONT "assets/font.tga"
 
@@ -18,7 +20,7 @@ public:
   virtual ~Text();
 
   void	initialize();
-  void	draw(gdl::AShader &, gdl::Clock const&) const;
+  void	draw(puff::AShader &, puff::Clock const&) const;
   void	clear();
 
   void	setText(std::string const&, float, float, float);
@@ -39,8 +41,8 @@ private:
   float				_defY;
   float				_defSize;
 
-  gdl::Texture			_font;
-  gdl::Geometry			*_geometry;
+  puff::Texture			_font;
+  puff::Geometry			*_geometry;
 };
 
 #endif /* _TEXT_H_ */

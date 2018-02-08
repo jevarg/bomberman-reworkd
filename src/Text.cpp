@@ -1,4 +1,4 @@
-#include <Clock.hh>
+#include <Clock.hpp>
 #include "Text.hpp"
 
 Text::Text()
@@ -31,7 +31,7 @@ void	Text::clear()
     }
 }
 
-void	Text::draw(gdl::AShader &shader, gdl::Clock const&) const
+void	Text::draw(puff::AShader &shader, puff::Clock const&) const
 {
   if (_geometry)
     {
@@ -52,7 +52,7 @@ void	Text::setText(std::string const& str, float x, float y, float size)
   clear();
   if (!str.length())
     return ;
-  _geometry = new gdl::Geometry();
+  _geometry = new puff::Geometry();
 
   for (unsigned int i = 0; i < str.length(); ++i)
     {

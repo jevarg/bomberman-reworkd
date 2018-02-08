@@ -95,7 +95,7 @@ bool Intro::nextFrame()
   return (false);
 }
 
-bool Intro::update(gdl::SdlContext &win, gdl::Clock &clock, Input &input, Settings &set)
+bool Intro::update(puff::SdlContext &win, puff::Clock &clock, Input &input, Settings &set)
 {
   input.getInput(set);
   usleep(30.0 * 1000);
@@ -105,7 +105,7 @@ bool Intro::update(gdl::SdlContext &win, gdl::Clock &clock, Input &input, Settin
   return (true);
 }
 
-void Intro::draw(gdl::AShader &shader, gdl::SdlContext &win, gdl::Clock clock, float x, float y)
+void Intro::draw(puff::AShader &shader, puff::SdlContext &win, puff::Clock clock, float x, float y)
 {
   shader.bind();
   shader.setUniform("projection", glm::ortho(0.0f, x, y, 0.0f, -1.0f, 1.0f));
@@ -120,7 +120,7 @@ void Intro::draw(gdl::AShader &shader, gdl::SdlContext &win, gdl::Clock clock, f
   win.flush();
 }
 
-void Intro::play(t_gameinfo &gameInfo, gdl::SdlContext &win, gdl::AShader &shader)
+void Intro::play(t_gameinfo &gameInfo, puff::SdlContext &win, puff::AShader &shader)
 {
   float x = gameInfo.set->getVar(W_WIDTH), y = gameInfo.set->getVar(W_HEIGHT);
 

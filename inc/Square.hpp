@@ -4,9 +4,9 @@
 # include <iostream>
 # include <glm/glm.hpp>
 # include <glm/gtc/matrix_transform.hpp>
-# include <Geometry.hh>
-# include <Texture.hh>
-# include <Clock.hh>
+# include <Geometry.hpp>
+# include <Texture.hpp>
+# include <Clock.hpp>
 # include "IObject.hpp"
 # include "Exception.hpp"
 
@@ -18,10 +18,10 @@ public:
   Square(const Square &);
   virtual ~Square();
   virtual bool initialize();
-  virtual void draw(gdl::AShader &shader, gdl::Clock const &) const;
+  virtual void draw(puff::AShader &shader, puff::Clock const &) const;
   virtual IObject *clone() const;
 
-  void setTexture(gdl::Texture *texture);
+  void setTexture(puff::Texture *texture);
   void setPos(int x, int y);
   void setSize(int x, int y);
   void setScale(int x, int y);
@@ -30,8 +30,8 @@ public:
 private:
 
   int _x, _y, _sizeX, _sizeY, _scaleX, _scaleY;
-  gdl::Texture *_texture;
-  gdl::Geometry *_geometry;
+  puff::Texture *_texture;
+  puff::Geometry *_geometry;
   std::string _file;
 };
 

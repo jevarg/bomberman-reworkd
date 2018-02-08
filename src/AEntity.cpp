@@ -71,7 +71,7 @@ void	AEntity::setDestroy()
   _gameInfo->map->removeEntityByPtr(this);
 }
 
-void	AEntity::draw(gdl::AShader &shader, gdl::Clock &clock)
+void	AEntity::draw(puff::AShader &shader, puff::Clock &clock)
 {
   _model->draw(shader, clock);
 }

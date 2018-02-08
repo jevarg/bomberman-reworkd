@@ -3,7 +3,7 @@
 
 # include <glm/glm.hpp>
 
-# include <Clock.hh>
+# include <Clock.hpp>
 # include "LuaCommunication.hpp"
 # include "ALivingEntity.hpp"
 # include "AEntity.hpp"
@@ -52,7 +52,7 @@ public:
 
   bool		initialize();
   bool		move(Map *map, float dirX, float dirY);
-  bool		updatePosition(Map *map, eAction action, gdl::Clock *clock);
+  bool		updatePosition(Map *map, eAction action, puff::Clock *clock);
   void		dropBomb();
   void		takeDamages(int amount);
 

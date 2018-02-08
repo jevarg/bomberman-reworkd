@@ -10,7 +10,7 @@ public:
   TextWidget(int x, int y, int height, int width, const std::string &text);
   ~TextWidget();
 
-  virtual void	draw(gdl::AShader &shader, const gdl::Clock &clock);
+  virtual void	draw(puff::AShader &shader, const puff::Clock &clock);
   virtual bool	isClicked(int x, int y);
   virtual void	onClick(t_gameinfo &gameInfo, Menu &menu);
 

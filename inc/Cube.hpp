@@ -6,7 +6,7 @@
 
 # include <iostream>
 # include "Geometry.hpp"
-//# include <Texture.hh>
+//# include <Texture.hpp>
 # include "Clock.hpp"
 # include "IObject.hpp"
 # include "Exception.hpp"
@@ -24,12 +24,12 @@ public:
     virtual bool    initialize();
     virtual void    draw(puff::AShader &shader, puff::Clock const &) const;
     virtual IObject *clone() const;
-//    void setTexture(gdl::Texture *texture);
+//    void setTexture(puff::Texture *texture);
     
 private:
     
-//    gdl::Texture *_texture;
-    gdl::Geometry *_geometry;
+//    puff::Texture *_texture;
+    puff::Geometry *_geometry;
     std::string _file;
 };
 

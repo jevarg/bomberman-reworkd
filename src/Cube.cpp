@@ -24,7 +24,7 @@ bool Cube::initialize()
     
 //    if (!_texture)
 //    {
-//        _texture = new gdl::Texture();
+//        _texture = new puff::Texture();
 //        if (_file.size() && !_texture->load(_file))
 //            throw(Exception("Cannot load the texture"));
 //    }
@@ -153,7 +153,7 @@ bool Cube::initialize()
     return (true);
 }
 
-void Cube::draw(puff::AShader &shader, gdl::Clock const &) const
+void Cube::draw(puff::AShader &shader, puff::Clock const &) const
 {
     if (_texture)
         _texture->bind();
@@ -166,7 +166,7 @@ IObject *Cube::clone() const
     return (new Cube(*this));
 }
 
-void Cube::setTexture(gdl::Texture *texture)
+void Cube::setTexture(puff::Texture *texture)
 {
     _texture = texture;
 }

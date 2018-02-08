@@ -62,7 +62,7 @@ bool Square::initialize()
 {
   if (!_texture)
     {
-      _texture = new gdl::Texture();
+      _texture = new puff::Texture();
       if (_file.size() && !_texture->load(_file))
 	throw(Exception("Cannot load the texture"));
     }
@@ -74,7 +74,7 @@ void Square::fillGeometry()
   if (_geometry)
     delete _geometry;
 
-  _geometry = new gdl::Geometry();
+  _geometry = new puff::Geometry();
 
   _geometry->pushVertex(glm::vec3(_x, _y, 0));
   _geometry->pushVertex(glm::vec3(_x + _sizeX * _scaleX, _y, 0));
@@ -88,7 +88,7 @@ void Square::fillGeometry()
   _geometry->build();
 }
 
-void Square::draw(gdl::AShader &shader, gdl::Clock const &) const
+void Square::draw(puff::AShader &shader, puff::Clock const &) const
 {
   if (_texture)
     _texture->bind();
@@ -101,7 +101,7 @@ IObject *Square::clone() const
   return (new Square(*this));
 }
 
-void Square::setTexture(gdl::Texture *texture)
+void Square::setTexture(puff::Texture *texture)
 {
   _texture = texture;
 }

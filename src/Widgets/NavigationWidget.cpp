@@ -22,7 +22,7 @@ void	NavigationWidget::onClick(t_gameinfo &gameInfo, Menu &menu)
   menu.setCurrentPanel(_onClickPanel);
 }
 
-void	NavigationWidget::draw(gdl::AShader &shader, const gdl::Clock &clock)
+void	NavigationWidget::draw(puff::AShader &shader, const puff::Clock &clock)
 {
   _square->fillGeometry();
   _square->draw(shader, clock);

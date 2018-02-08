@@ -1,17 +1,23 @@
 #ifndef _GAMEENGINE_HPP_
 # define _GAMEENGINE_HPP_
 
+# ifdef _WIN32
+#  include <io.h>
+# else
+#  include <unistd.h>
+# endif // WIN32
+
+
 # include "glm/glm.hpp"
 # include "glm/gtc/matrix_transform.hpp"
 # include <vector>
 # include <map>
 # include <deque>
-# include <unistd.h>
-# include <Game.hh>
-# include <BasicShader.hh>
-# include <SdlContext.hh>
-# include <Clock.hh>
-# include <Input.hh>
+# include <Game.hpp>
+# include <BasicShader.hpp>
+# include <SdlContext.hpp>
+# include <Clock.hpp>
+# include <Input.hpp>
 # include "Cube.hpp"
 # include "Exception.hpp"
 # include "Camera.hpp"
@@ -75,11 +81,11 @@ typedef struct s_score
 
 typedef struct	s_gameinfo
 {
-  s_gameinfo(gdl::Clock *pclock, Map *pmap, Settings *pset, Input *pinput, Sound *psound, Save *psave) :
+  s_gameinfo(puff::Clock *pclock, Map *pmap, Settings *pset, Input *pinput, Sound *psound, Save *psave) :
     clock(pclock), input(pinput), set(pset), sound(psound), map(pmap), save(psave)
   {
   }
-  gdl::Clock   	*clock;
+  puff::Clock   	*clock;
   Input	       	*input;
   Settings     	*set;
   Sound		*sound;
@@ -90,10 +96,10 @@ typedef struct	s_gameinfo
   t_score	score;
 }		t_gameinfo;
 
-class GameEngine : public gdl::Game
+class GameEngine : public puff::Game
 {
 public:
-  GameEngine(gdl::SdlContext *win, gdl::BasicShader *shader, t_gameinfo *gameInfo);
+  GameEngine(puff::SdlContext *win, puff::BasicShader *shader, t_gameinfo *gameInfo);
   ~GameEngine();
 
   virtual bool	initialize();
@@ -117,16 +123,16 @@ private:
   void	moveGround(Player *player, float mapX, float mapY);
   void	fillScore(const std::string &name, int score);
 
-  gdl::SdlContext		*_win;
-  gdl::BasicShader		_shader;
-  gdl::BasicShader		*_textShader;
+  puff::SdlContext		*_win;
+  puff::BasicShader		_shader;
+  puff::BasicShader		*_textShader;
   Cube				*_ground;
   Cube				*_skybox;
   Console			*_console;
   unsigned int			_mapX;
   unsigned int			_mapY;
   std::map<eType, IObject *>	_type;
-  std::map<eType, gdl::Texture *>	_texture;
+  std::map<eType, puff::Texture *>	_texture;
   Player			*_player;
   t_gameinfo			*_gameInfo;
   bool				_already_played;

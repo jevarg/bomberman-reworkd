@@ -2,7 +2,7 @@
 # define _MENU_HPP_
 
 //# include <Game.hh>
-//# include <SdlContext.hh>
+//# include <SdlContext.hpp>
 # include <vector>
 # include <algorithm>
 //# include "Settings.hpp"
@@ -49,8 +49,8 @@ private:
 //    void    freePanel(AWidget *background, AWidget *title,
 //                      AWidget *back, std::vector<AWidget *> &panel);
     
-//    gdl::SdlContext    _win;
-//    gdl::BasicShader    _textShader;
+//    puff::SdlContext    _win;
+//    puff::BasicShader    _textShader;
     bool			_done;
     bool			_multi;
 //    t_gameinfo        _gameInfo;

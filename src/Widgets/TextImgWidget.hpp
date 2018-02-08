@@ -12,7 +12,7 @@ public:
   ~TextImgWidget();
 
   const std::string	&getContent() const;
-  virtual void	draw(gdl::AShader &shader, const gdl::Clock &clock);
+  virtual void	draw(puff::AShader &shader, const puff::Clock &clock);
 
 protected:
   std::string	_sentence;

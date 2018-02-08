@@ -1,7 +1,7 @@
 #ifndef _HUD_HPP_
 # define _HUD_HPP_
 
-# include <BasicShader.hh>
+# include <BasicShader.hpp>
 # include "Player.hpp"
 # include "Square.hpp"
 # include "Text.hpp"
@@ -16,14 +16,14 @@ typedef struct s_gameinfo t_gameinfo;
 class HUD
 {
 public:
-  HUD(gdl::AShader &shader);
+  HUD(puff::AShader &shader);
   ~HUD();
 
   void setScore(float score, float x);
   void draw(Player *player, t_gameInfo &gameInfo, bool multi);
 
 private:
-  gdl::AShader &_shader;
+  puff::AShader &_shader;
   Square _stock;
   Square _nostock;
   Square _heart;

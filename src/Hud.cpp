@@ -1,7 +1,7 @@
 #include "GameEngine.hpp"
 #include "Hud.hpp"
 
-HUD::HUD(gdl::AShader &shader)
+HUD::HUD(puff::AShader &shader)
   : _shader(shader), _stock(STOCK_TEXTURE), _nostock(NOSTOCK_TEXTURE),
     _heart(HEART_TEXTURE), _noHeart(NOHEART_TEXTURE), _score()
 {
