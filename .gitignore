@@ -2,3 +2,6 @@
 x64
 Bomberman
 *.sln
+*.xcodeproj
+.DS_Store
+.gitignore~
