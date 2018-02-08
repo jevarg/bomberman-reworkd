@@ -25,6 +25,12 @@ namespace puff
         }
         else
         {
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+            SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+
             // Create OpenGL context
             _glContext = SDL_GL_CreateContext(_window);
             
@@ -36,14 +42,16 @@ namespace puff
             }
             else
             {
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-                
-                _glContext = SDL_GL_CreateContext(_window);
-
                 // Initialize glew
-                glewInit();
+                GLenum err = glewInit();
+                if (err != GLEW_OK)
+                {
+                    //Problem: glewInit failed, something is seriously wrong.
+                    fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+                    return 0;
+                }
+                
+                glEnable(GL_DEPTH_TEST);
             }
         }
         return (true);
@@ -52,24 +60,37 @@ namespace puff
     // Update the inputs
     void    SdlContext::updateInputs(Input &input) const
     {
-        
+
     }
     
     // Update the game clock
     void    SdlContext::updateClock(Clock &clock) const
     {
-        
+        glClearColor (0.7f, 0.2f, 0.2f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        unsigned int currentTime = SDL_GetTicks();
+        clock.update(currentTime);
     }
     
     // Flush the screen to show what has been drawn
     void    SdlContext::flush() const
     {
+        SDL_PumpEvents();
         SDL_GL_SwapWindow(_window);
+//        SDL_Event event;
+//        while (SDL_PollEvent(&event))
+//        {
+//            if (event.type == SDL_QUIT ||
+//                event.type == SDL_KEYDOWN)
+//                loop = false;
+//        }
     }
     
     // Close the context and the window
     void    SdlContext::stop() const
     {
-        
+        SDL_GL_DeleteContext(_glContext);
+        SDL_DestroyWindow(_window);
+        SDL_Quit();
     }
 }

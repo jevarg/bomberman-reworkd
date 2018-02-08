@@ -1,7 +1,7 @@
 #version 410
 
-uniform mat3 normal;
-uniform mat4 modelView;
+uniform mat4 model;
+uniform mat4 view;
 uniform mat4 projection;
 
 uniform sampler2D fTexture0;
@@ -20,7 +20,10 @@ out vec3 fNormal;
 
 void main(void)
 {
-    
+    mat4 modelView = view * model;
+    mat4 inverseModelView = inverse(modelView);
+    mat3 normal = mat3(transpose(inverseModelView));
+
     fEyePos = modelView * vec4(vPosition.xyz, 1.0);
     fNormal = normalize(normal * vNormal);
     gl_Position =  projection * fEyePos;

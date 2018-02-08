@@ -8,7 +8,7 @@
 # include <GL\GLU.h>
 # include <GL\glext.h>
 #elif __APPLE__
-#
+# include <OpenGL/gl.h>
 #else
 # include <GL/gl.h>
 # include <GL/glu.h>

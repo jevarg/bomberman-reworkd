@@ -1,7 +1,9 @@
 #pragma once
 
-#include <OpenGL.hh>
+#include <iostream>
 #include <string>
+#include <fstream>
+#include <OpenGL.hh>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 

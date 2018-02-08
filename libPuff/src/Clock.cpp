@@ -3,8 +3,8 @@
 namespace puff {
     Clock::Clock()
     {
-        _oldTime = SDL_GetTicks();
-        _curTime = SDL_GetTicks();
+        _oldTime = 0;
+        _curTime = 0;
     }
     
     Clock::~Clock()
@@ -15,7 +15,7 @@ namespace puff {
     void Clock::update(unsigned int currentTime)
     {
         _oldTime = _curTime;
-        _curTime = SDL_GetTicks();
+        _curTime = currentTime;
     }
     
     double Clock::getElapsed() const

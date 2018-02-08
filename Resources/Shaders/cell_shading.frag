@@ -51,7 +51,5 @@ vec3 Shade(vec3 p, vec3 n)
 
 void main()
 {
-//    FragColors = texture(fTexture0, fUv);
     FragColors = vec4(Shade(fPosition.xyz, fNormal), 1.0f);
-//    FragColors = vec3(.6);
 }

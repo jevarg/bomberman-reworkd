@@ -4,6 +4,8 @@
 #include <AShader.hpp>
 #include <glm/glm.hpp>
 
+# define BUFFER_OFFSET(a) ((char*)NULL + (a)) // VBO macro
+
 namespace puff
 {
     class VertexBuffer;
@@ -30,7 +32,9 @@ namespace puff
         void draw(AShader &shader, glm::mat4 const &transform, GLenum drawMode);
         
     private:
-        VertexBuffer            *_buffer;
+        GLuint                    _vboID;
+        GLuint                    _vaoID;
+        VertexBuffer              *_buffer;
         std::vector<glm::vec4>    _vertices;
         std::vector<glm::vec4>    _colors;
         std::vector<glm::vec4>    _normals;
