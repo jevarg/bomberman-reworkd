@@ -45,6 +45,7 @@ bool		Model::load(std::string const& path)
 
 void		Model::setTexture(puff::Texture *)
 {
+    
 }
 
 puff::Model	*Model::getModel()

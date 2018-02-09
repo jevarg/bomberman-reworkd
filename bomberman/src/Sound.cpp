@@ -9,23 +9,23 @@ Sound::Sound()
       if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
 	throw (Exception("Mix_OpenAudio()"));
       Mix_AllocateChannels(128);
-      _musicBox["intro"] = Mix_LoadMUS("./assets/sounds/intro.ogg");
-      _musicBox["menu"] = Mix_LoadMUS("./assets/sounds/menu.ogg");
-      _musicBox["game"] = Mix_LoadMUS("./assets/sounds/game.ogg");
-      _soundBox["box"] = Mix_LoadWAV("./assets/sounds/chest.wav");
-      _soundBox["creeper"] = Mix_LoadWAV("./assets/sounds/creeper.wav");
-      _soundBox["eat"] = Mix_LoadWAV("./assets/sounds/eat.wav");
-      _soundBox["explosion"] = Mix_LoadWAV("./assets/sounds/explosion.wav");
-      _soundBox["fuse"] = Mix_LoadWAV("./assets/sounds/fuse.wav");
-      _soundBox["hurt"] = Mix_LoadWAV("./assets/sounds/hurt.wav");
-      _soundBox["pop"] = Mix_LoadWAV("./assets/sounds/pop.wav");
-      _soundBox["orb"] = Mix_LoadWAV("./assets/sounds/orb.wav");
-      _soundBox["click"] = Mix_LoadWAV("./assets/sounds/click.wav");
-      _soundBox["getbomb"] = Mix_LoadWAV("./assets/sounds/getbomb.wav");
-      _soundBox["burp"] = Mix_LoadWAV("./assets/sounds/burp.wav");
-      _soundBox["chickenhurt"] = Mix_LoadWAV("./assets/sounds/chickenhurt.wav");
-      _soundBox["chickenspawn"] = Mix_LoadWAV("./assets/sounds/chickenspawn.wav");
-      _soundBox["endgame"] = Mix_LoadWAV("./assets/sounds/endgame.wav");
+      _musicBox["intro"] = Mix_LoadMUS("./Resources/Assets/sounds/intro.ogg");
+      _musicBox["menu"] = Mix_LoadMUS("./Resources/Assets/sounds/menu.ogg");
+      _musicBox["game"] = Mix_LoadMUS("./Resources/Assets/sounds/game.ogg");
+      _soundBox["box"] = Mix_LoadWAV("./Resources/Assets/sounds/chest.wav");
+      _soundBox["creeper"] = Mix_LoadWAV("./Resources/Assets/sounds/creeper.wav");
+      _soundBox["eat"] = Mix_LoadWAV("./Resources/Assets/sounds/eat.wav");
+      _soundBox["explosion"] = Mix_LoadWAV("./Resources/Assets/sounds/explosion.wav");
+      _soundBox["fuse"] = Mix_LoadWAV("./Resources/Assets/sounds/fuse.wav");
+      _soundBox["hurt"] = Mix_LoadWAV("./Resources/Assets/sounds/hurt.wav");
+      _soundBox["pop"] = Mix_LoadWAV("./Resources/Assets/sounds/pop.wav");
+      _soundBox["orb"] = Mix_LoadWAV("./Resources/Assets/sounds/orb.wav");
+      _soundBox["click"] = Mix_LoadWAV("./Resources/Assets/sounds/click.wav");
+      _soundBox["getbomb"] = Mix_LoadWAV("./Resources/Assets/sounds/getbomb.wav");
+      _soundBox["burp"] = Mix_LoadWAV("./Resources/Assets/sounds/burp.wav");
+      _soundBox["chickenhurt"] = Mix_LoadWAV("./Resources/Assets/sounds/chickenhurt.wav");
+      _soundBox["chickenspawn"] = Mix_LoadWAV("./Resources/Assets/sounds/chickenspawn.wav");
+      _soundBox["endgame"] = Mix_LoadWAV("./Resources/Assets/sounds/endgame.wav");
       for (std::map<std::string, Mix_Chunk *>::iterator it = _soundBox.begin(); it != _soundBox.end(); ++it)
 	if (it->second != NULL)
 	  Mix_VolumeChunk(it->second, 32);

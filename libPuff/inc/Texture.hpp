@@ -3,6 +3,8 @@
 #include <string>
 #include <OpenGL.hh>
 #include <glm/glm.hpp>
+#include <SDL2_image/SDL_image.h>
+#include "targa.h"
 
 namespace    puff
 {

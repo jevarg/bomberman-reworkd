@@ -91,72 +91,72 @@ bool  Menu::initialize()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    if (!_textShader.load("./Shaders/text.fp", GL_FRAGMENT_SHADER) ||
-        !_textShader.load("./Shaders/text.vp", GL_VERTEX_SHADER) ||
+    if (!_textShader.load("./Resources/Shaders/text.frag", GL_FRAGMENT_SHADER) ||
+        !_textShader.load("./Resources/Shaders/text.vert", GL_VERTEX_SHADER) ||
         !_textShader.build())
         return (false);
     _gameInfo.sound->play("menu", MUSIC);
     ImageWidget    *background = new ImageWidget(0, 0, y, x,
-                                                 "./Ressources/Images/background.tga");
+                                                 "./Resources/Images/background.tga");
     ImageWidget    *title = new ImageWidget(x / 8, y / 1.43f, y / 4.8f, x / 1.3f,
-                                            "./assets/BomberCraft.tga");
+                                            "./Resources/Assets/BomberCraft.tga");
     NavigationWidget *back = new NavigationWidget(x / 8, y / 11.25f, y / 11.25f, x / 6.15f,
-                                                  "./assets/Button/back.tga", &_mainPanel);
+                                                  "./Resources/Assets/Button/back.tga", &_mainPanel);
     
     _mainPanel.push_back(background);
     _mainPanel.push_back(title);
     _mainPanel.push_back(new NavigationWidget(x / 4, y / 1.8f, y / 11.25f, x / 2,
-                                              "./assets/Button/singleplayer.tga", &_newGamePanelSolo));
+                                              "./Resources/Assets/Button/singleplayer.tga", &_newGamePanelSolo));
     _mainPanel.push_back(new NavigationWidget(x / 4, y / 2.25f, y / 11.25f, x / 2,
-                                              "./assets/Button/multiplayer.tga", &_newGamePanelMulti));
+                                              "./Resources/Assets/Button/multiplayer.tga", &_newGamePanelMulti));
     _mainPanel.push_back(new NavigationWidget(x / 4, y / 3.0f, y / 11.25f, x / 2,
-                                              "./assets/Button/load_game.tga", &_loadGamePanel));
+                                              "./Resources/Assets/Button/load_game.tga", &_loadGamePanel));
     _mainPanel.push_back(new NavigationWidget(x / 4, y / 4.5f, y / 11.25f, x / 2,
-                                              "./assets/Button/options.tga", &_optionsPanel));
+                                              "./Resources/Assets/Button/options.tga", &_optionsPanel));
     _mainPanel.push_back(new QuitWidget(x / 4, y / 18, y / 11.25f, x / 2,
-                                        "./assets/Button/quit.tga"));
+                                        "./Resources/Assets/Button/quit.tga"));
     
     _newGamePanelSolo.push_back(background);
     _newGamePanelSolo.push_back(title);
     _newGamePanelSolo.push_back(back);
     _newGamePanelSolo.push_back(new LaunchWidget(x / 4, y / 2.0f, y / 11.25f, x / 2,
-                                                 "./assets/Button/generate_map.tga", &_mainPanel));
+                                                 "./Resources/Assets/Button/generate_map.tga", &_mainPanel));
     _newGamePanelSolo.push_back(new NavigationWidget(x / 4, y / 2.5f, y / 11.25f, x / 2,
-                                                     "./assets/Button/import_map.tga", &_importMapPanel));
+                                                     "./Resources/Assets/Button/import_map.tga", &_importMapPanel));
     _newGamePanelSolo.push_back(new InputWidget(x - x / 5, y / 4.0, y / 11.25f, x / 8,
-                                                "./assets/input.tga", "Nb AI"));
+                                                "./Resources/Assets/input.tga", "Nb AI"));
     _newGamePanelSolo.push_back(new NameWidget(x / 4, y / 4.0, y / 11.25f, x / 2,
-                                               "./assets/input.tga", 1));
+                                               "./Resources/Assets/input.tga", 1));
     
     _newGamePanelMulti.push_back(background);
     _newGamePanelMulti.push_back(title);
     _newGamePanelMulti.push_back(back);
     _newGamePanelMulti.push_back(new LaunchWidget(x / 4, y / 1.8f, y / 11.25f, x / 2,
-                                                  "./assets/Button/generate_map.tga", &_mainPanel));
+                                                  "./Resources/Assets/Button/generate_map.tga", &_mainPanel));
     _newGamePanelMulti.push_back(new NavigationWidget(x / 4, y / 2.25f, y / 11.25f, x / 2,
-                                                      "./assets/Button/import_map.tga", &_importMapPanel));
+                                                      "./Resources/Assets/Button/import_map.tga", &_importMapPanel));
     _newGamePanelMulti.push_back(new InputWidget(x - x / 5, y / 4.5, y / 11.25f, x / 8,
-                                                 "./assets/input.tga", "Nb AI"));
+                                                 "./Resources/Assets/input.tga", "Nb AI"));
     _newGamePanelMulti.push_back(new NameWidget(x / 4, y / 3.0, y / 11.25f, x / 2,
-                                                "./assets/input.tga", 1));
+                                                "./Resources/Assets/input.tga", 1));
     _newGamePanelMulti.push_back(new NameWidget(x / 4, y / 4.5, y / 11.25f, x / 2,
-                                                "./assets/input.tga", 2));
+                                                "./Resources/Assets/input.tga", 2));
     
     _loadGamePanel.push_back(background);
     _loadGamePanel.push_back(title);
     _loadGamePanel.push_back(back);
     _loadGamePanel.push_back(new LoadGameWidget(x / 4, y / 1.8f, y / 11.25f, x / 2,
-                                                "./assets/Button/button.tga", "Free", 0));
+                                                "./Resources/Assets/Button/button.tga", "Free", 0));
     _loadGamePanel.push_back(new LoadGameWidget(x / 4, y / 2.25f, y / 11.25f, x / 2,
-                                                "./assets/Button/button.tga", "Free", 1));
+                                                "./Resources/Assets/Button/button.tga", "Free", 1));
     _loadGamePanel.push_back(new LoadGameWidget(x / 4, y / 3.0f, y / 11.25f, x / 2,
-                                                "./assets/Button/button.tga", "Free", 2));
+                                                "./Resources/Assets/Button/button.tga", "Free", 2));
     _loadGamePanel.push_back(new LoadGameWidget(x / 4, y / 4.5f, y / 11.25f, x / 2,
-                                                "./assets/Button/button.tga", "Free", 3));
+                                                "./Resources/Assets/Button/button.tga", "Free", 3));
     _loadGamePanel.push_back(new ArrowWidget(x / 2 - 2 * (x / 21.0f), y / 11.25f, y / 12, x / 21.0f,
-                                             "./assets/Button/left_arrow.tga", 0));
+                                             "./Resources/Assets/Button/left_arrow.tga", 0));
     _loadGamePanel.push_back(new ArrowWidget(x / 2 + x / 21.0f, y / 11.25f, y / 12, x / 21.0f,
-                                             "./assets/Button/right_arrow.tga", 1));
+                                             "./Resources/Assets/Button/right_arrow.tga", 1));
     
     
     // add input widget or input image
@@ -164,30 +164,30 @@ bool  Menu::initialize()
     _importMapPanel.push_back(title);
     _importMapPanel.push_back(back);
     _importMapPanel.push_back(new LoadWidget(x / 4, y / 1.8f, y / 11.25f, x / 2,
-                                             "./assets/Button/button.tga", "Free", 0));
+                                             "./Resources/Assets/Button/button.tga", "Free", 0));
     _importMapPanel.push_back(new LoadWidget(x / 4, y / 2.25f, y / 11.25f, x / 2,
-                                             "./assets/Button/button.tga", "Free", 1));
+                                             "./Resources/Assets/Button/button.tga", "Free", 1));
     _importMapPanel.push_back(new LoadWidget(x / 4, y / 3.0f, y / 11.25f, x / 2,
-                                             "./assets/Button/button.tga", "Free", 2));
+                                             "./Resources/Assets/Button/button.tga", "Free", 2));
     _importMapPanel.push_back(new LoadWidget(x / 4, y / 4.5f, y / 11.25f, x / 2,
-                                             "./assets/Button/button.tga", "Free", 3));
+                                             "./Resources/Assets/Button/button.tga", "Free", 3));
     _importMapPanel.push_back(new ArrowWidget(x / 2 - 2 * (x / 21.0f), y / 11.25f, y / 12, x / 21.0f,
-                                              "./assets/Button/left_arrow.tga", 0));
+                                              "./Resources/Assets/Button/left_arrow.tga", 0));
     _importMapPanel.push_back(new ArrowWidget(x / 2 + x / 21.0f, y / 11.25f, y / 12, x / 21.0F,
-                                              "./assets/Button/right_arrow.tga", 1));
+                                              "./Resources/Assets/Button/right_arrow.tga", 1));
     
     // add input widget or input image
     _optionsPanel.push_back(background);
     _optionsPanel.push_back(title);
     _optionsPanel.push_back(back);
     _optionsPanel.push_back(new FullScreenWidget(x / 4, y / 2.0f, y / 11.25f, x / 2,
-                                                 "./assets/Button/button.tga", ""));
+                                                 "./Resources/Assets/Button/button.tga", ""));
     _optionsPanel.push_back(new NavigationWidget(x / 4, y / 2.5f, y / 11.25f, x / 2,
-                                                 "./assets/Button/controls.tga", &_controlsPanel));
+                                                 "./Resources/Assets/Button/controls.tga", &_controlsPanel));
     _optionsPanel.push_back(new SoundWidget(x / 4, y / 3.35f, y / 11.25f, x / 2,
-                                            "./assets/Button/button.tga", ""));
+                                            "./Resources/Assets/Button/button.tga", ""));
     // _optionsPanel.push_back(new NavigationWidget(x / 4, y / 3.35f, y / 11.25f, x / 2,
-    //                            "./assets/Button/resolution.tga", &_screenPanel));
+    //                            "./Resources/Assets/Button/resolution.tga", &_screenPanel));
     
     _controlsPanel.push_back(background);
     _controlsPanel.push_back(title);
@@ -195,56 +195,56 @@ bool  Menu::initialize()
     _controlsPanel.push_back(new KeyWidget(x / 8, y / 1.8f, y / 16.8, x / 30, FORWARD));
     _controlsPanel.push_back(new TextImgWidget(x / 8 + 2 * x / 30, y / 1.8f,
                                                y / 16.8, x / 4,
-                                               "./assets/Button/button_small.tga", "Forward"));
+                                               "./Resources/Assets/Button/button_small.tga", "Forward"));
     _controlsPanel.push_back(new KeyWidget(x / 8, y / 2.25f, y / 16.8, x / 30, BACK));
     _controlsPanel.push_back(new TextImgWidget(x / 8 + 2 * x / 30, y / 2.25f,
                                                y / 16.8, x / 4,
-                                               "./assets/Button/button_small.tga", "Back"));
+                                               "./Resources/Assets/Button/button_small.tga", "Back"));
     _controlsPanel.push_back(new KeyWidget(x / 8, y / 3.0f, y / 16.8, x / 30, LEFT));
     _controlsPanel.push_back(new TextImgWidget(x / 8 + 2 * x / 30, y / 3.0f,
                                                y / 16.8, x / 4,
-                                               "./assets/Button/button_small.tga", "Left"));
+                                               "./Resources/Assets/Button/button_small.tga", "Left"));
     _controlsPanel.push_back(new KeyWidget(x / 2 + x / 8, y / 1.8f,
                                            y / 16.8, x / 30, RIGHT));
     _controlsPanel.push_back(new TextImgWidget(x / 2 + x / 8 + 2 * x / 30, y / 1.8f,
                                                y / 16.8, x / 4,
-                                               "./assets/Button/button_small.tga", "Right"));
+                                               "./Resources/Assets/Button/button_small.tga", "Right"));
     _controlsPanel.push_back(new KeyWidget(x / 2 + x / 8, y / 2.25f,
                                            y / 16.8, x / 30, DROPBOMB));
     _controlsPanel.push_back(new TextImgWidget(x / 2 + x / 8 + 2 * x / 30, y / 2.25f,
                                                y / 16.8, x / 4,
-                                               "./assets/Button/button_small.tga", "Drop bomb"));
+                                               "./Resources/Assets/Button/button_small.tga", "Drop bomb"));
     
     _pausePanel.push_back(background);
     _pausePanel.push_back(title);
     _pausePanel.push_back(new ClickTextWidget(x / 4, y / 1.8f, y / 11.25f, x / 2,
-                                              "./assets/Button/button.tga", "Resume"));
+                                              "./Resources/Assets/Button/button.tga", "Resume"));
     _pausePanel.push_back(new ClickTextWidget(x / 4, y / 2.25f, y / 11.25f, x / 2,
-                                              "./assets/Button/button.tga", "Save"));
+                                              "./Resources/Assets/Button/button.tga", "Save"));
     _pausePanel.push_back(new ClickTextWidget(x / 4, y / 3.0f, y / 11.25f, x / 2,
-                                              "./assets/Button/button.tga", "Quit"));
+                                              "./Resources/Assets/Button/button.tga", "Quit"));
     
     
     _savePanel.push_back(background);
     _savePanel.push_back(title);
     _savePanel.push_back(new NavigationWidget(x / 8, y / 11.25f, y / 11.25f, x / 6.15f,
-                                              "./assets/Button/back.tga", &_pausePanel));
+                                              "./Resources/Assets/Button/back.tga", &_pausePanel));
     _savePanel.push_back(new TextImgWidget(x / 4, y / 2.25f, y / 11.25f, x / 2,
-                                           "./assets/Button/button.tga", "Save your Game"));
+                                           "./Resources/Assets/Button/button.tga", "Save your Game"));
     _savePanel.push_back(new SaveWidget(x / 4, y / 3.0f, y / 11.25f, x / 2,
-                                        "./assets/input.tga", "Filename.map"));
+                                        "./Resources/Assets/input.tga", "Filename.map"));
     
     _screenPanel.push_back(background);
     _screenPanel.push_back(title);
     _screenPanel.push_back(back);
     _screenPanel.push_back(new ResWidget(x / 4, y / 1.8f, y / 11.25f, x / 2,
-                                         "./assets/Button/button.tga", "2880x1800"));
+                                         "./Resources/Assets/Button/button.tga", "2880x1800"));
     _screenPanel.push_back(new ResWidget(x / 4, y / 2.25f, y / 11.25f, x / 2,
-                                         "./assets/Button/button.tga", "1920x1080"));
+                                         "./Resources/Assets/Button/button.tga", "1920x1080"));
     _screenPanel.push_back(new ResWidget(x / 4, y / 3.0f, y / 11.25f, x / 2,
-                                         "./assets/Button/button.tga", "1280x1024"));
+                                         "./Resources/Assets/Button/button.tga", "1280x1024"));
     _screenPanel.push_back(new ResWidget(x / 4, y / 4.5f, y / 11.25f, x / 2,
-                                         "./assets/Button/button.tga", "800x600"));
+                                         "./Resources/Assets/Button/button.tga", "800x600"));
     
     _cube.initialize();
     fact.addModel(WALL, new Cube(_cube), WALL_TEXTURE);
@@ -595,7 +595,7 @@ void    Menu::launch()
     
     if (!initialize())
         return ;
-    if (intro.initialize("./Ressources/Video/intro.mp4"))
+    if (intro.initialize("./Resources/Video/intro.mp4"))
         intro.play(_gameInfo, _win, _textShader);
     while (!_done)
     {

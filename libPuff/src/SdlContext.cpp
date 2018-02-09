@@ -44,14 +44,16 @@ namespace puff
             {
                 // Initialize glew
                 GLenum err = glewInit();
+                std::cout << "GLEW Initialized" << std::endl;
                 if (err != GLEW_OK)
                 {
                     //Problem: glewInit failed, something is seriously wrong.
                     fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-                    return 0;
+                    return (false);
                 }
                 
                 glEnable(GL_DEPTH_TEST);
+                glClearColor (0, 0, 0, 1.0f);
             }
         }
         return (true);
@@ -66,8 +68,6 @@ namespace puff
     // Update the game clock
     void    SdlContext::updateClock(Clock &clock) const
     {
-        glClearColor (0.7f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         unsigned int currentTime = SDL_GetTicks();
         clock.update(currentTime);
     }
@@ -75,7 +75,6 @@ namespace puff
     // Flush the screen to show what has been drawn
     void    SdlContext::flush() const
     {
-        SDL_PumpEvents();
         SDL_GL_SwapWindow(_window);
 //        SDL_Event event;
 //        while (SDL_PollEvent(&event))
@@ -91,6 +90,5 @@ namespace puff
     {
         SDL_GL_DeleteContext(_glContext);
         SDL_DestroyWindow(_window);
-        SDL_Quit();
     }
 }

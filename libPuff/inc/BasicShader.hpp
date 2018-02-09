@@ -4,7 +4,7 @@
 
 namespace    puff
 {
-    // Class used to compile the shaders basic.fp and basic.vp
+    // Class used to compile the shaders basic.frag and basic.vert
     class BasicShader : public AShader
     {
     public:

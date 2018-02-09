@@ -15,7 +15,6 @@ GameEngine::GameEngine(puff::SdlContext *win, puff::BasicShader *textShader, t_g
   _skybox = NULL;
   _console = NULL;
   _already_played = false;
-  _fps.initialize();
   _gameInfo->mutex = new Mutex;
   _gameInfo->condvar = new Condvar;
   _gameInfo->save = new Save;
@@ -50,8 +49,8 @@ bool GameEngine::initialize()
   if (!_end_screen[0]->initialize() || !_end_screen[1]->initialize())
     return (false);
 
-  if (!_shader.load("./Shaders/basic.fp", GL_FRAGMENT_SHADER)
-      || !_shader.load("./Shaders/basic.vp", GL_VERTEX_SHADER)
+  if (!_shader.load("./Resources/Shaders/basic2.frag", GL_FRAGMENT_SHADER)
+      || !_shader.load("./Resources/Shaders/basic2.vert", GL_VERTEX_SHADER)
       || !_shader.build())
     return (false);
   glEnable(GL_DEPTH_TEST);

@@ -11,7 +11,7 @@
 # include "ATransformation.hpp"
 
 
-# define FONT "assets/font.tga"
+# define FONT "Resources/Assets/font.tga"
 
 class	Text: public ATransformation
 {

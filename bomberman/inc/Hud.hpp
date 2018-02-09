@@ -8,10 +8,10 @@
 
 typedef struct s_gameinfo t_gameinfo;
 
-# define STOCK_TEXTURE "./assets/stock.tga"
-# define NOSTOCK_TEXTURE "./assets/nostock.tga"
-# define HEART_TEXTURE "./assets/heart.tga"
-# define NOHEART_TEXTURE "./assets/noheart.tga"
+# define STOCK_TEXTURE "./Resources/Assets/stock.tga"
+# define NOSTOCK_TEXTURE "./Resources/Assets/nostock.tga"
+# define HEART_TEXTURE "./Resources/Assets/heart.tga"
+# define NOHEART_TEXTURE "./Resources/Assets/noheart.tga"
 
 class HUD
 {

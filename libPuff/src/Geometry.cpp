@@ -54,8 +54,8 @@ namespace puff
             return (false);
         }
         
-        glGenBuffers(1, &_vboID);
         glGenVertexArrays(1, &_vaoID);
+        glGenBuffers(1, &_vboID);
         
         glBindBuffer(GL_ARRAY_BUFFER, _vboID);
         
@@ -72,7 +72,7 @@ namespace puff
         glBindBuffer(GL_ARRAY_BUFFER, _vboID);
         
         // Getting vertices from GPU
-        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
         glEnableVertexAttribArray(0);
         
         // Getting UVs from GPU

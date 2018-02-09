@@ -3,8 +3,8 @@
 namespace puff {
     Clock::Clock()
     {
-        _oldTime = 0;
-        _curTime = 0;
+        _oldTime = SDL_GetTicks();
+        _curTime = _oldTime;
     }
     
     Clock::~Clock()
