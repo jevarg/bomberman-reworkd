@@ -13,7 +13,7 @@ in vec2 vTexCoord;
 
 //out vec4 fColor;
 //out vec3 fNormal;
-//out vec2 fUv;
+out vec2 fUv = vTexCoord;
 out vec4 fEyePos;
 out vec3 fNormal;
 //out vec3 fPosition;

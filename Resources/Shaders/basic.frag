@@ -9,6 +9,7 @@ uniform sampler2D fTexture0;
 //in vec3 vPosition;
 in vec4 fEyePos;
 in vec3 fNormal;
+in vec2 fUv;
 
 out vec4 FragColor;
 
@@ -121,6 +122,6 @@ void main()
     diffuse = material.Kd * light.Ld * max(dotLN, 0.0);
     specular = material.Ks * light.Ls * pow(max(dotRV, 0.0), material.shininess);
 
-    FragColor = vec4(diffuse + specular + ambient, 1.0f);
-//    FragColor = vec4(1.0);
+//    FragColor = vec4(diffuse + specular + ambient, 1.0f);
+    FragColor = texture(fTexture0, fUv);
 }
