@@ -1,8 +1,10 @@
+#ifndef _WIN32
+# include <dirent.h>
+#endif
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <sys/types.h>
-#include <dirent.h>
 #include "Menu.hpp"
 #include "NavigationWidget.hpp"
 #include "ImageWidget.hpp"
@@ -314,7 +316,11 @@ bool        Menu::update()
     if ((time = _gameInfo.clock->getElapsed()) < fps)
     {
         _frames = 0;
-        usleep((fps - time) * 1000);
+#ifdef _WIN32
+		Sleep(fps - time);
+#else
+		usleep((fps - time) * 1000);
+#endif
     }
     return (true);
 }
@@ -348,8 +354,14 @@ void    Menu::draw()
 void    Menu::handleClock(int &frame, double &time, double fps)
 {
     time = _gameInfo.clock->getElapsed();
-    if (time < fps)
-        usleep((fps - time) * 1000);
+	if (time < fps)
+	{
+		#ifdef _WIN32
+			Sleep(fps - time);
+		#else
+			usleep((fps - time) * 1000);
+		#endif
+	}
     frame = (frame >= 100) ? 100 : frame + 1;
     _win.updateClock(*_gameInfo.clock);
 }
@@ -540,7 +552,11 @@ int        Menu::pauseMenu()
     if ((time = _gameInfo.clock->getElapsed()) < fps)
     {
         _frames = 0;
-        usleep((fps - time) * 1000);
+#ifdef _WIN32
+		Sleep(fps - time);
+#else
+		usleep((fps - time) * 1000);
+#endif
     }
     return (0);
 }
@@ -674,10 +690,24 @@ void    Menu::saveScore()
 
 void    Menu::readDir(const std::string &dirname)
 {
+	_filename.clear();
+#ifdef _WIN32
+	WIN32_FIND_DATA data;
+	HANDLE hFind = FindFirstFile(reinterpret_cast<LPCTSTR>((dirname+"\*").c_str()), &data);      // DIRECTORY
+
+	if (hFind != INVALID_HANDLE_VALUE) {
+		char ch[260];
+		char DefChar = ' ';
+		do {
+			WideCharToMultiByte(CP_ACP, 0, data.cFileName, -1, ch, 260, &DefChar, NULL);
+			_filename.push_back(std::string(ch));
+		} while (FindNextFile(hFind, &data));
+		FindClose(hFind);
+	}
+#else
     DIR    *dirp;
     struct dirent *file;
     
-    _filename.clear();
     if ((dirp = opendir(dirname.c_str())) == NULL)
         return ;
     while ((file = readdir(dirp)) != NULL)
@@ -685,6 +715,7 @@ void    Menu::readDir(const std::string &dirname)
         if (file->d_type != DT_DIR)
             _filename.push_back(file->d_name);
     }
+#endif
 }
 
 Menu    &Menu::operator++()

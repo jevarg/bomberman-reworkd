@@ -1,8 +1,8 @@
-# ifdef _WIN32
-#  include <io.h>
-# else
-#  include <unistd.h>
-# endif // WIN32
+#ifdef _WIN32
+# include <io.h>
+#else
+# include <unistd.h>
+#endif // WIN32
 
 #include <iostream>
 #include <SdlContext.hpp>
@@ -16,6 +16,16 @@
 #include "Cube.hpp"
 #include "Camera.hpp"
 #include "Input.hpp"
+
+#ifdef _WIN32
+FILE _iob[] = { *stdin, *stdout, *stderr };
+
+extern "C" FILE * __cdecl __iob_func(void)
+{
+	return _iob;
+}
+#endif // WIN32
+
 
 //int    main()
 //{
@@ -77,8 +87,12 @@ int    main()
 {
     int    seed;
 
-    __asm__ volatile ("rdtsc" : "=A" (seed));
-    std::srand(seed);
+	#ifdef _WIN32
+		std::srand(time(NULL));
+	#else
+		__asm__ volatile ("rdtsc" : "=A" (seed));
+		std::srand(seed);
+	#endif
 
 
     try

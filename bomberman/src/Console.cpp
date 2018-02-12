@@ -33,7 +33,13 @@ void	Console::handleClock(const puff::SdlContext &win, int &frame,
 {
   time = _clock.getElapsed();
   if (time < fps)
-    usleep((fps - time) * 1000);
+  {
+	#ifdef _WIN32
+	  Sleep(fps - time);
+	#else
+	  usleep((fps - time) * 1000);
+	#endif
+  }
   frame = (frame >= 100) ? 100 : frame + 1;
   win.updateClock(_clock);
 }

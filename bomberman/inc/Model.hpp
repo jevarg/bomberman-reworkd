@@ -2,7 +2,7 @@
 # define _MODEL_H_
 
 # include <string>
-# include <Model.hpp>
+# include <PuffModel.hpp>
 # include <Texture.hpp>
 # include <AShader.hpp>
 # include <Clock.hpp>

@@ -6,7 +6,7 @@
 # include <Windows.h>
 # include <GL\GL.h>
 # include <GL\GLU.h>
-# include <GL\glext.h>
+//# include <GL\glext.h>
 #elif __APPLE__
 # include <OpenGL/gl.h>
 #else

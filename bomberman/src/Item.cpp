@@ -9,7 +9,7 @@ Item::~Item()
 {
 }
 
-void	Item::setAttr(ACharacter */*ch*/) const
+void	Item::setAttr(ACharacter *ch) const
 {
 }
 
