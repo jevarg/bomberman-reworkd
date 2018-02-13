@@ -8,8 +8,8 @@ namespace    puff
     class Clock
     {
     private:
-        unsigned int _oldTime;
-        unsigned int _curTime;
+		double _oldTime;
+		double _curTime;
         
     public:
         Clock();
@@ -17,7 +17,7 @@ namespace    puff
 
         // Do not call this function yourself!
         // It is used by the context to update the current time
-        void update(unsigned int currentTime);
+        void update(double currentTime);
         
         // Function used to get the elapsed time since the last update
         double getElapsed() const;

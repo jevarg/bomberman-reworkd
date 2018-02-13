@@ -1,4 +1,5 @@
 #include "Clock.hpp"
+#include <iostream>
 
 namespace puff {
     Clock::Clock()
@@ -12,14 +13,14 @@ namespace puff {
         
     }
     
-    void Clock::update(unsigned int currentTime)
+    void Clock::update(double currentTime)
     {
         _oldTime = _curTime;
-        _curTime = currentTime;
+		_curTime = currentTime;
     }
     
     double Clock::getElapsed() const
     {
-        return (_curTime - _oldTime);
+        return (_curTime - _oldTime) / 1000;
     }
 }
