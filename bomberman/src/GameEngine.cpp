@@ -53,8 +53,8 @@ bool GameEngine::initialize()
     if (!_end_screen[0]->initialize() || !_end_screen[1]->initialize())
     return (false);
     
-    if (!_shader.load("./Resources/Shaders/basic.frag", GL_FRAGMENT_SHADER)
-        || !_shader.load("./Resources/Shaders/basic.vert", GL_VERTEX_SHADER)
+    if (!_shader.load("./Resources/Shaders/basic2.frag", GL_FRAGMENT_SHADER)
+        || !_shader.load("./Resources/Shaders/basic2.vert", GL_VERTEX_SHADER)
         || !_shader.build())
     return (false);
     glEnable(GL_DEPTH_TEST);
@@ -138,12 +138,12 @@ bool		GameEngine::update()
     }
     if (time < fps)
     {
-    }
 #ifdef _WIN32
-    Sleep(fps - time);
+		Sleep(fps - time);
 #else
-    usleep((fps - time) * 1000);
+		usleep((fps - time) * 1000);
 #endif
+	}
     _win->updateClock(*_gameInfo->clock);
     return (true);
 }
