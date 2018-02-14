@@ -20,43 +20,6 @@
 
 namespace
 {
-    // Button and action definition
-    const int LEFT_BUTTON = 0;
-    const int MIDDLE_BUTTON = 1;
-    const int RIGHT_BUTTON = 2;
-    
-    const int BUTTON_DOWN = 0;
-    const int BUTTON_UP = 1;
-    
-    // Find all the cameras under this node recursively.
-    void FillCameraArrayRecursive(FbxNode* pNode, FbxArray<FbxNode*>& pCameraArray)
-    {
-        if (pNode)
-        {
-            if (pNode->GetNodeAttribute())
-            {
-                if (pNode->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eCamera)
-                {
-                    pCameraArray.Add(pNode);
-                }
-            }
-            
-            const int lCount = pNode->GetChildCount();
-            for (int i = 0; i < lCount; i++)
-            {
-                FillCameraArrayRecursive(pNode->GetChild(i), pCameraArray);
-            }
-        }
-    }
-    
-    // Find all the cameras in this scene.
-    void FillCameraArray(FbxScene* pScene, FbxArray<FbxNode*>& pCameraArray)
-    {
-        pCameraArray.Clear();
-        
-        FillCameraArrayRecursive(pScene->GetRootNode(), pCameraArray);
-    }
-    
     // Find all poses in this scene.
     void FillPoseArray(FbxScene* pScene, FbxArray<FbxPose*>& pPoseArray)
     {
@@ -154,7 +117,7 @@ namespace
     }
     
     // Load a texture file (TGA only now) into GPU and return the texture object name
-    bool LoadTextureFromFile(const FbxString & pFilePath, unsigned int & pTextureObject)
+    bool LoadTextureFromFile(const FbxString &pFilePath, unsigned int &pTextureObject)
     {
         if (pFilePath.Right(3).Upper() == "TGA")
         {
@@ -172,10 +135,15 @@ namespace
                 
                 // Make the image BGR 24
                 tga_convert_depth(&lTGAImage, 24);
+
+                
                 
                 // Transfer the texture date into GPU
                 glGenTextures(1, &pTextureObject);
                 glBindTexture(GL_TEXTURE_2D, pTextureObject);
+
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, lTGAImage.width, lTGAImage.height, 0, GL_BGR, GL_UNSIGNED_BYTE, lTGAImage.image_data);
+                
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 //                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -183,12 +151,12 @@ namespace
 //                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 //                printf("error: %x\n", glGetError());
 //                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, lTGAImage.width, lTGAImage.height, 0, GL_BGR, GL_UNSIGNED_BYTE, lTGAImage.image_data);
-                glBindTexture(GL_TEXTURE_2D, 0);
+//                glBindTexture(GL_TEXTURE_2D, 0);
                 
                 
                 tga_free_buffers(&lTGAImage);
-                
+             
+                std::cout << "Loaded texture: " << pFilePath << std::endl;
                 return true;
             }
         }
@@ -200,20 +168,20 @@ namespace
     // Currently only mesh, light and material.
     void LoadCacheRecursive(FbxNode * pNode, FbxAnimLayer * pAnimLayer, bool pSupportVBO)
     {
-//        // Bake material and hook as user data.
-//        const int lMaterialCount = pNode->GetMaterialCount();
-//        for (int lMaterialIndex = 0; lMaterialIndex < lMaterialCount; ++lMaterialIndex)
-//        {
-//            FbxSurfaceMaterial * lMaterial = pNode->GetMaterial(lMaterialIndex);
-//            if (lMaterial && !lMaterial->GetUserDataPtr())
-//            {
-//                FbxAutoPtr<MaterialCache> lMaterialCache(new MaterialCache);
-//                if (lMaterialCache->Initialize(lMaterial))
-//                {
-//                    lMaterial->SetUserDataPtr(lMaterialCache.Release());
-//                }
-//            }
-//        }
+        // Bake material and hook as user data.
+        const int lMaterialCount = pNode->GetMaterialCount();
+        for (int lMaterialIndex = 0; lMaterialIndex < lMaterialCount; ++lMaterialIndex)
+        {
+            FbxSurfaceMaterial * lMaterial = pNode->GetMaterial(lMaterialIndex);
+            if (lMaterial && !lMaterial->GetUserDataPtr())
+            {
+                FbxAutoPtr<MaterialCache> lMaterialCache(new MaterialCache);
+                if (lMaterialCache->Initialize(lMaterial))
+                {
+                    lMaterial->SetUserDataPtr(lMaterialCache.Release());
+                }
+            }
+        }
         
         FbxNodeAttribute* lNodeAttribute = pNode->GetNodeAttribute();
         if (lNodeAttribute)
@@ -439,10 +407,6 @@ namespace puff
             // Initialize the importer by providing a filename.
             if(mImporter->Initialize(mFileName, lFileFormat) == true)
             {
-                // The file is going to be imported at
-                // the end of the first display callback.
-                std::cout << "Importing file: " << mFileName << std::endl << "Please wait!" << std::endl;
-                
                 // Set scene status flag to ready to load.
                 mStatus = MUST_BE_LOADED;
             }
@@ -456,6 +420,8 @@ namespace puff
         {
             std::cerr << "Unable to create the FBX SDK manager";
         }
+        
+        std::cout << std::endl << "Imported model: " << mFileName << std::endl;
     }
     
     FbxModel::~FbxModel()
@@ -489,20 +455,20 @@ namespace puff
                 mStatus = MUST_BE_REFRESHED;
                 
                 // Convert Axis System to what is used in this example, if needed
-//                FbxAxisSystem SceneAxisSystem = mScene->GetGlobalSettings().GetAxisSystem();
-//                FbxAxisSystem OurAxisSystem(FbxAxisSystem::eYAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eRightHanded);
-//                if( SceneAxisSystem != OurAxisSystem )
-//                {
-//                    OurAxisSystem.ConvertScene(mScene);
-//                }
-//
-//                // Convert Unit System to what is used in this example, if needed
-//                FbxSystemUnit SceneSystemUnit = mScene->GetGlobalSettings().GetSystemUnit();
-//                if( SceneSystemUnit.GetScaleFactor() != 1.0 )
-//                {
-//                    //The unit in this example is centimeter.
-//                    FbxSystemUnit::cm.ConvertScene( mScene);
-//                }
+                FbxAxisSystem SceneAxisSystem = mScene->GetGlobalSettings().GetAxisSystem();
+                FbxAxisSystem OurAxisSystem(FbxAxisSystem::eYAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eRightHanded);
+                if( SceneAxisSystem != OurAxisSystem )
+                {
+                    OurAxisSystem.ConvertScene(mScene);
+                }
+
+                // Convert Unit System to what is used in this example, if needed
+                FbxSystemUnit SceneSystemUnit = mScene->GetGlobalSettings().GetSystemUnit();
+                if( SceneSystemUnit.GetScaleFactor() != 1.0 )
+                {
+                    //The unit in this example is centimeter.
+                    FbxSystemUnit::cm.ConvertScene( mScene);
+                }
                 
                 // Get the list of all the animation stack.
                 mScene->FillAnimStackNameArray(mAnimStackNameArray);
@@ -511,8 +477,8 @@ namespace puff
 //                FillCameraArray(mScene, mCameraArray);
                 
                 // Convert mesh, NURBS and patch into triangle mesh
-//                FbxGeometryConverter lGeomConverter(mSdkManager);
-//                lGeomConverter.Triangulate(mScene, /*replace*/true);
+                FbxGeometryConverter lGeomConverter(mSdkManager);
+                lGeomConverter.Triangulate(mScene, /*replace*/true);
                 
                 // Bake the scene for one frame
                 LoadCacheRecursive(mScene, mCurrentAnimLayer, mFileName, mSupportVBO);
@@ -525,10 +491,10 @@ namespace puff
                 FillPoseArray(mScene, mPoseArray);
                 
                 // Initialize the frame period.
-//                mFrameTime.SetTime(0, 0, 0, 1, 0, mScene->GetGlobalSettings().GetTimeMode());
+                mFrameTime.SetTime(0, 0, 0, 1, 0, mScene->GetGlobalSettings().GetTimeMode());
                 
                 lResult = true;
-                std::cout << "Loaded: " << mFileName << std::endl;
+                std::cout << "Loaded model: " << mFileName << std::endl;
             }
             else
             {

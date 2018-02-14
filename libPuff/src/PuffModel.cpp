@@ -54,7 +54,6 @@ namespace puff
     }
     
     void Model::draw(puff::AShader &shader, const glm::mat4 &transform, double deltaTime) {
-//        shader.setUniform("model", transform);
         _model->OnDisplay(&shader, transform);
     }
     

@@ -19,6 +19,39 @@ namespace puff
         tga_image  loadedImage;
         tga_result result;
         
+//        if (tga_read(&lTGAImage, pFilePath.Buffer()) == TGA_NOERR)
+//        {
+//            // Make sure the image is left to right
+//            if (tga_is_right_to_left(&lTGAImage))
+//            tga_flip_horiz(&lTGAImage);
+//
+//            // Make sure the image is bottom to top
+//            if (tga_is_top_to_bottom(&lTGAImage))
+//            tga_flip_vert(&lTGAImage);
+//
+//            // Make the image BGR 24
+//            tga_convert_depth(&lTGAImage, 24);
+//
+//            // Transfer the texture date into GPU
+//            glGenTextures(1, &pTextureObject);
+//            glBindTexture(GL_TEXTURE_2D, pTextureObject);
+//            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//            //                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+//            //                printf("error: %x\n", glGetError());
+//            //                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+//            //                printf("error: %x\n", glGetError());
+//            //                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+//            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, lTGAImage.width, lTGAImage.height, 0, GL_BGR, GL_UNSIGNED_BYTE, lTGAImage.image_data);
+//            glBindTexture(GL_TEXTURE_2D, 0);
+//
+//
+//            tga_free_buffers(&lTGAImage);
+//
+//            std::cout << "Loaded texture: " << pFilePath << std::endl;
+//            return true;
+//        }
+        
         result = tga_read(&loadedImage, path.c_str());
         if (result != TGA_NOERR)
         {
@@ -26,10 +59,13 @@ namespace puff
             return (false);
         }
         
-        if (loadedImage.origin_y)
-        {
-            tga_flip_vert(&loadedImage);//TODO REWORK
-        }
+        // Make sure the image is left to right
+        if (tga_is_right_to_left(&loadedImage))
+            tga_flip_horiz(&loadedImage);
+        
+        // Make sure the image is bottom to top
+        if (tga_is_top_to_bottom(&loadedImage))
+            tga_flip_vert(&loadedImage);
         
         _width  = loadedImage.width;
         _height = loadedImage.height;

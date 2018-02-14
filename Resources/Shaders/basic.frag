@@ -123,6 +123,5 @@ void main()
     specular = material.Ks * light.Ls * pow(max(dotRV, 0.0), material.shininess);
 
 //    FragColor = vec4(diffuse + specular + ambient, 1.0f);
-//    FragColor = texture(fTexture0, fUv);
-    FragColor = vec4(1);
+    FragColor = texture(fTexture0, fUv);
 }

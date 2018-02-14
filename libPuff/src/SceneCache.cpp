@@ -89,7 +89,7 @@ VBOMesh::~VBOMesh()
 bool VBOMesh::Initialize(const FbxMesh *pMesh)
 {
     if (!pMesh->GetNode())
-        return false;
+    return false;
     const int lPolygonCount = pMesh->GetPolygonCount();
     // Count the polygon count of each material
     FbxLayerElementArrayTemplate<int>* lMaterialIndice = NULL;
@@ -122,7 +122,7 @@ bool VBOMesh::Initialize(const FbxMesh *pMesh)
                 for (int i = 0; i < mSubMeshes.GetCount(); i++)
                 {
                     if (mSubMeshes[i] == NULL)
-                        mSubMeshes[i] = new SubMesh;
+                    mSubMeshes[i] = new SubMesh;
                 }
                 // Record the offset (how many vertex)
                 const int lMaterialCount = mSubMeshes.GetCount();
@@ -295,10 +295,10 @@ bool VBOMesh::Initialize(const FbxMesh *pMesh)
         }
         mSubMeshes[lMaterialIndex]->TriangleCount += 1;
     }
-
+    
     glGenVertexArrays(1, &mVAO);
     glBindVertexArray(mVAO);
-
+    
     // Create VBOs
     glGenBuffers(VBO_COUNT, mVBONames);
     // Save vertex attributes into GPU
@@ -307,7 +307,7 @@ bool VBOMesh::Initialize(const FbxMesh *pMesh)
     
     glVertexAttribPointer(0, VERTEX_STRIDE, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(0);
-
+    
     delete [] lVertices;
     if (mHasNormal)
     {
@@ -331,9 +331,9 @@ bool VBOMesh::Initialize(const FbxMesh *pMesh)
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBONames[INDEX_VBO]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, lPolygonCount * TRIANGLE_VERTEX_COUNT * sizeof(unsigned int), lIndices, GL_STATIC_DRAW);
-
+    
     glBindVertexArray(0);
-
+    
     delete [] lIndices;
     return true;
 }
@@ -376,9 +376,13 @@ void VBOMesh::UpdateVertexPosition(const FbxMesh * pMesh, const FbxVector4 * pVe
     // Transfer into GPU.
     if (lVertices)
     {
+        glBindVertexArray(mVAO);
+
         glBindBuffer(GL_ARRAY_BUFFER, mVBONames[VERTEX_VBO]);
         glBufferData(GL_ARRAY_BUFFER, lVertexCount * VERTEX_STRIDE * sizeof(float), lVertices, GL_STATIC_DRAW);
 
+        glBindVertexArray(0);
+        
         delete [] lVertices;
     }
 }
@@ -391,75 +395,28 @@ void VBOMesh::Draw(int pMaterialIndex) const
 #endif
     // Where to start.
     GLsizei lOffset = mSubMeshes[pMaterialIndex]->IndexOffset * sizeof(unsigned int);
-//    if ( pShadingMode == SHADING_MODE_SHADED)
-//    {
-        const GLsizei lElementCount = mSubMeshes[pMaterialIndex]->TriangleCount * 3;
+    const GLsizei lElementCount = mSubMeshes[pMaterialIndex]->TriangleCount * 3;
     
-        glBindVertexArray(mVAO);
-
-//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBONames[INDEX_VBO]);
-        glDrawElements(GL_TRIANGLES, lElementCount, GL_UNSIGNED_INT, reinterpret_cast<const GLvoid *>(lOffset));
-
-        glBindVertexArray(0);
-//    }
+    glBindVertexArray(mVAO);
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBONames[INDEX_VBO]);
+    glDrawElements(GL_TRIANGLES, lElementCount, GL_UNSIGNED_INT, reinterpret_cast<const GLvoid *>(lOffset));
+    
+    glBindVertexArray(0);
+    
 #if _MSC_VER >= 1900 && defined(_WIN64)
 #pragma warning( pop )
 #endif
 }
 void VBOMesh::BeginDraw() const
 {
-//    // Push OpenGL attributes.
-////    glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
-////    glPushAttrib(GL_ENABLE_BIT);
-////    glPushAttrib(GL_CURRENT_BIT);
-////    glPushAttrib(GL_LIGHTING_BIT);
-////    glPushAttrib(GL_TEXTURE_BIT);
-//
-//    // Set vertex position array.
-//    glBindVertexArray(mVAO);
-//    glBindBuffer(GL_ARRAY_BUFFER, mVBONames[VERTEX_VBO]);
-////    glVertexPointer(VERTEX_STRIDE, GL_FLOAT, 0, 0);
-////    glEnableClientState(GL_VERTEX_ARRAY);
-//    // Set normal array.
-//    if (mHasNormal)
-//    {
-//        glBindBuffer(GL_ARRAY_BUFFER, mVBONames[NORMAL_VBO]);
-////        glNormalPointer(GL_FLOAT, 0, 0);
-////        glEnableClientState(GL_NORMAL_ARRAY);
-//    }
-//
-//    // Set UV array.
-//    if (mHasUV)
-//    {
-//        glBindBuffer(GL_ARRAY_BUFFER, mVBONames[UV_VBO]);
-////        glTexCoordPointer(UV_STRIDE, GL_FLOAT, 0, 0);
-////        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//    }
-//    // Set index array.
-//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBONames[INDEX_VBO]);
-////    if (pShadingMode == SHADING_MODE_SHADED)
-////    {
-////        glEnable(GL_LIGHTING);
-////        glEnable(GL_TEXTURE_2D);
-////        glEnable(GL_NORMALIZE);
-////    }
-////    else
-////    {
-////        glColor4fv(WIREFRAME_COLOR);
-////    }
 }
 void VBOMesh::EndDraw() const
 {
-    // Reset VBO binding.
+    // Reset VBO & VAO binding.
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-//    glBindVertexArray(0);
-    // Pop OpenGL attributes.
-//    glPopAttrib();
-//    glPopAttrib();
-//    glPopAttrib();
-//    glPopAttrib();
-//    glPopClientAttrib();
+    glBindVertexArray(0);
 }
 MaterialCache::MaterialCache() : mShinness(0)
 {
@@ -500,123 +457,9 @@ bool MaterialCache::Initialize(const FbxSurfaceMaterial * pMaterial)
 }
 void MaterialCache::SetCurrentMaterial() const
 {
-//    glMaterialfv(GL_FRONT, GL_EMISSION, mEmissive.mColor);
-//    glMaterialfv(GL_FRONT, GL_AMBIENT, mAmbient.mColor);
-//    glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse.mColor);
-//    glMaterialfv(GL_FRONT, GL_SPECULAR, mSpecular.mColor);
-//    glMaterialf(GL_FRONT, GL_SHININESS, mShinness);
     glBindTexture(GL_TEXTURE_2D, mDiffuse.mTextureName);
 }
 void MaterialCache::SetDefaultMaterial()
 {
-//    glMaterialfv(GL_FRONT, GL_EMISSION, BLACK_COLOR);
-//    glMaterialfv(GL_FRONT, GL_AMBIENT, BLACK_COLOR);
-//    glMaterialfv(GL_FRONT, GL_DIFFUSE, GREEN_COLOR);
-//    glMaterialfv(GL_FRONT, GL_SPECULAR, BLACK_COLOR);
-//    glMaterialf(GL_FRONT, GL_SHININESS, 0);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
-//int LightCache::sLightCount = 0;
-//LightCache::LightCache() : mType(FbxLight::ePoint)
-//{
-//    mLightIndex = GL_LIGHT0 + sLightCount++;
-//}
-//LightCache::~LightCache()
-//{
-//    glDisable(mLightIndex);
-//    --sLightCount;
-//}
-//// Bake light properties.
-//bool LightCache::Initialize(const FbxLight * pLight, FbxAnimLayer * pAnimLayer)
-//{
-//    mType = pLight->LightType.Get();
-//    FbxPropertyT<FbxDouble3> lColorProperty = pLight->Color;
-//    FbxDouble3 lLightColor = lColorProperty.Get();
-//    mColorRed.mValue = static_cast<float>(lLightColor[0]);
-//    mColorGreen.mValue = static_cast<float>(lLightColor[1]);
-//    mColorBlue.mValue = static_cast<float>(lLightColor[2]);
-//    if (pAnimLayer)
-//    {
-//        mColorRed.mAnimCurve = lColorProperty.GetCurve(pAnimLayer, FBXSDK_CURVENODE_COLOR_RED);
-//        mColorGreen.mAnimCurve = lColorProperty.GetCurve(pAnimLayer, FBXSDK_CURVENODE_COLOR_GREEN);
-//        mColorBlue.mAnimCurve = lColorProperty.GetCurve(pAnimLayer, FBXSDK_CURVENODE_COLOR_BLUE);
-//    }
-//    if (mType == FbxLight::eSpot)
-//    {
-//        FbxPropertyT<FbxDouble> lConeAngleProperty = pLight->InnerAngle;
-//        mConeAngle.mValue = static_cast<GLfloat>(lConeAngleProperty.Get());
-//        if (pAnimLayer)
-//            mConeAngle.mAnimCurve = lConeAngleProperty.GetCurve(pAnimLayer);
-//    }
-//    return true;
-//}
-//void LightCache::SetLight(const FbxTime & pTime) const
-//{
-//    const GLfloat lLightColor[4] = {mColorRed.Get(pTime), mColorGreen.Get(pTime), mColorBlue.Get(pTime), 1.0f};
-//    const GLfloat lConeAngle = mConeAngle.Get(pTime);
-//    glColor3fv(lLightColor);
-//    glPushAttrib(GL_ENABLE_BIT);
-//    glPushAttrib(GL_POLYGON_BIT);
-//    // Visible for double side.
-//    glDisable(GL_CULL_FACE);
-//    // Draw wire-frame geometry.
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-//    if (mType == FbxLight::eSpot)
-//    {
-//        // Draw a cone for spot light.
-//        glPushMatrix();
-//        glScalef(1.0f, 1.0f, -1.0f);
-//        const double lRadians = ANGLE_TO_RADIAN * lConeAngle;
-//        const double lHeight = 15.0;
-//        const double lBase = lHeight * tan(lRadians / 2);
-//        GLUquadricObj * lQuadObj = gluNewQuadric();
-//        gluCylinder(lQuadObj, 0.0, lBase, lHeight, 18, 1);
-//        gluDeleteQuadric(lQuadObj);
-//        glPopMatrix();
-//    }
-//    else
-//    {
-//        // Draw a sphere for other types.
-//        GLUquadricObj * lQuadObj = gluNewQuadric();
-//        gluSphere(lQuadObj, 1.0, 10, 10);
-//        gluDeleteQuadric(lQuadObj);
-//    }
-//    glPopAttrib();
-//    glPopAttrib();
-//    // The transform have been set, so set in local coordinate.
-//    if (mType == FbxLight::eDirectional)
-//    {
-//        glLightfv(mLightIndex, GL_POSITION, DEFAULT_DIRECTION_LIGHT_POSITION);
-//    }
-//    else
-//    {
-//        glLightfv(mLightIndex, GL_POSITION, DEFAULT_LIGHT_POSITION);
-//    }
-//    glLightfv(mLightIndex, GL_DIFFUSE, lLightColor);
-//    glLightfv(mLightIndex, GL_SPECULAR, lLightColor);
-//
-//    if (mType == FbxLight::eSpot && lConeAngle != 0.0)
-//    {
-//        glLightfv(mLightIndex, GL_SPOT_DIRECTION, DEFAULT_SPOT_LIGHT_DIRECTION);
-//        // If the cone angle is 0, equal to a point light.
-//        if (lConeAngle != 0.0f)
-//        {
-//            // OpenGL use cut off angle, which is half of the cone angle.
-//            glLightf(mLightIndex, GL_SPOT_CUTOFF, lConeAngle/2);
-//        }
-//    }
-//    glEnable(mLightIndex);
-//}
-//void LightCache::IntializeEnvironment(const FbxColor & pAmbientLight)
-//{
-//    glLightfv(GL_LIGHT0, GL_POSITION, DEFAULT_DIRECTION_LIGHT_POSITION);
-//    glLightfv(GL_LIGHT0, GL_DIFFUSE, DEFAULT_LIGHT_COLOR);
-//    glLightfv(GL_LIGHT0, GL_SPECULAR, DEFAULT_LIGHT_COLOR);
-//    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, DEFAULT_LIGHT_SPOT_CUTOFF);
-//    glEnable(GL_LIGHT0);
-//    // Set ambient light.
-//    GLfloat lAmbientLight[] = {static_cast<GLfloat>(pAmbientLight[0]), static_cast<GLfloat>(pAmbientLight[1]),
-//        static_cast<GLfloat>(pAmbientLight[2]), 1.0f};
-//    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lAmbientLight);
-//}
-
