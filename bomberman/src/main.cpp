@@ -23,10 +23,8 @@
 //    context->start(800, 600, "Bomberman");
 //
 //    puff::BasicShader shader;
-//
 //    shader.load("./Resources/Shaders/basic.frag", GL_FRAGMENT_SHADER);
 //    shader.load("./Resources/Shaders/basic.vert", GL_VERTEX_SHADER);
-//
 //    shader.build();
 //
 //    Camera *camera;
@@ -34,10 +32,9 @@
 //    puff::Texture texture;
 //
 //    texture.load("Resources/Assets/box.tga");
-//
 //    cube.initialize();
 //    cube.setTexture(&texture);
-//    cube.setPos(glm::vec3(0, 0, 1));
+//    cube.setPos(glm::vec3(3, 3, 1));
 //    t_gameinfo ginfo(NULL, NULL, NULL, NULL, NULL, NULL);
 //
 //    ginfo.input = new Input();
@@ -49,8 +46,12 @@
 //    ginfo.set->loadFile(USER_FILE);
 //
 //    camera = new Camera(&ginfo, false);
-//    camera->setPos(glm::vec3(0, 0, 0));
+//    camera->setPos(glm::vec3(0, 1, 4));
 //    camera->lookAt();
+//
+//    Model model;
+//    model.load(BOMB_MODEL);
+//    model.setPos(glm::vec3(0, -1.5f, 0));
 //
 //    while(1) {
 //        SDL_PumpEvents();
@@ -61,9 +62,11 @@
 //        shader.bind();
 //        shader.setUniform("projection", camera->getProjection());
 //        shader.setUniform("view", camera->getTransformation());
+//        model.draw(shader, *ginfo.clock);
+//        model.rotate(glm::vec3(0, 1, 0), 0.02f);
 //
 //        cube.draw(shader, *ginfo.clock);
-//        cube.rotate(glm::vec3(0, 1, 0), 0.02f);
+////        cube.rotate(glm::vec3(0, 1, 0), 0.02f);
 //
 //        context->flush();
 //
@@ -94,6 +97,3 @@ int    main()
 
     return (0);
 }
-
-
-

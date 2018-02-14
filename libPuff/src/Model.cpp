@@ -2,7 +2,8 @@
 
 namespace puff
 {
-    Model::Model() {
+    Model::Model()
+    {
         ;
     }
     
@@ -11,11 +12,12 @@ namespace puff
     }
     
     void Model::pause(bool pauseAnim) {
-        ;
+        _model->SetPause(pauseAnim);
     }
     
     bool Model::setCurrentAnim(int stack, bool loop) {
-        return (true);
+        _loop = loop;
+        return (_model->SetCurrentAnimStack(stack));
     }
     
     bool Model::setCurrentAnim(const std::string &name, bool loop) {
@@ -47,11 +49,13 @@ namespace puff
     }
     
     bool Model::load(const std::string &path) {
-        return (true);
+        _model = new FbxModel(path.c_str(), true);
+        return _model->LoadFile();
     }
     
     void Model::draw(puff::AShader &shader, const glm::mat4 &transform, double deltaTime) {
-        ;
+//        shader.setUniform("model", transform);
+        _model->OnDisplay(&shader, transform);
     }
     
     void Model::removeFromManager()

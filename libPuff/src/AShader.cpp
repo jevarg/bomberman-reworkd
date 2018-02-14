@@ -303,8 +303,8 @@ namespace puff
     }
     
     bool AShader::_bindTextureUnit(GLuint texUnit, const std::string &samplerName) {
-//        glActiveTexture(texUnit);
-        return 0;
+        glActiveTexture(GL_TEXTURE0 + texUnit);
+        return true;
     }
     
     GLuint AShader::getUniformId(const std::string &k) const {

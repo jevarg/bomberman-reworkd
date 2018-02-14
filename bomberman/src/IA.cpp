@@ -22,7 +22,7 @@ void	IA::update()
   pushEntitie(std::floor(x), std::floor(y), &cnt, aggro[_level - 1]);
   if (cnt != 0)
     {
-      int res = getResultScript(aggro[_level - 1], static_cast<int>(_orient), "ai/main.lua");
+      int res = getResultScript(aggro[_level - 1], static_cast<int>(_orient), "Resources/AI/main.lua");
       // std::cout << "script returned " << res << std::endl;
       if (res == DROPBOMB)
 	dropBomb();

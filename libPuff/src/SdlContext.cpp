@@ -44,13 +44,15 @@ namespace puff
             {
                 // Initialize glew
                 GLenum err = glewInit();
-                std::cout << "GLEW Initialized" << std::endl;
                 if (err != GLEW_OK)
                 {
                     //Problem: glewInit failed, something is seriously wrong.
                     fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
                     return (false);
                 }
+                
+                std::cout << "GLEW version: " << GLEW_VERSION << "." << GLEW_VERSION_MAJOR << "." << GLEW_VERSION_MINOR << "." << GLEW_VERSION_MICRO << " initialized" << std::endl;
+                std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl << std::endl;
                 
                 glEnable(GL_DEPTH_TEST);
                 glClearColor (0, 0, 0, 1.0f);
@@ -68,7 +70,7 @@ namespace puff
     // Update the game clock
     void    SdlContext::updateClock(Clock &clock) const
     {
-        unsigned int currentTime = SDL_GetTicks();
+        double currentTime = SDL_GetTicks();
         clock.update(currentTime);
     }
     
