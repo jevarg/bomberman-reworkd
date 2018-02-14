@@ -60,6 +60,8 @@ namespace puff
         // Call this method when timer is finished, for animation display.
         void OnTimerClick() const;
         
+        int getAnimationDuration(const int &stack) const;
+        
         // Methods for creating menus.
         // Get all the cameras in current scene, including producer cameras.
 //        const FbxArray<FbxNode *> & GetCameraArray() const { return mCameraArray; }

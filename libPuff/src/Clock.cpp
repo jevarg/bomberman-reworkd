@@ -13,7 +13,7 @@ namespace puff {
         
     }
     
-    void Clock::update(double currentTime)
+    void Clock::update(unsigned int currentTime)
     {
         _oldTime = _curTime;
 		_curTime = currentTime;
@@ -21,6 +21,7 @@ namespace puff {
     
     double Clock::getElapsed() const
     {
-        return (_curTime - _oldTime) / 1000.0;
+        double elapsedTime = static_cast<double>((_curTime - _oldTime) / 1000.0);
+        return elapsedTime;
     }
 }

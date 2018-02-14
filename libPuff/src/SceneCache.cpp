@@ -74,7 +74,7 @@ VBOMesh::VBOMesh() : mHasNormal(false), mHasUV(false), mAllByControlPoint(true)
 }
 VBOMesh::~VBOMesh()
 {
-    // Delete VBO objects, zeros are ignored automatically.
+    // Delete VAO & VBO objects, zeros are ignored automatically.
     glDeleteBuffers(VBO_COUNT, mVBONames);
     glDeleteVertexArrays(1, &mVAO);
     
@@ -376,13 +376,9 @@ void VBOMesh::UpdateVertexPosition(const FbxMesh * pMesh, const FbxVector4 * pVe
     // Transfer into GPU.
     if (lVertices)
     {
-        glBindVertexArray(mVAO);
-
         glBindBuffer(GL_ARRAY_BUFFER, mVBONames[VERTEX_VBO]);
         glBufferData(GL_ARRAY_BUFFER, lVertexCount * VERTEX_STRIDE * sizeof(float), lVertices, GL_STATIC_DRAW);
 
-        glBindVertexArray(0);
-        
         delete [] lVertices;
     }
 }

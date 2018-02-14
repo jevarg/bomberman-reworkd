@@ -6,7 +6,7 @@ in vec3 fNormal;
 in vec4 fPosition;
 in vec2 fUv;
 
-out vec4 FragColors;
+out vec4 FragColor;
 
 
 // Background color
@@ -51,5 +51,6 @@ vec3 Shade(vec3 p, vec3 n)
 
 void main()
 {
-    FragColors = vec4(Shade(fPosition.xyz, fNormal), 1.0f);
+//    FragColor = texture(fTexture0, fUv);
+    FragColor = vec4(Shade(fPosition.xyz, fNormal), 1.0f);
 }
