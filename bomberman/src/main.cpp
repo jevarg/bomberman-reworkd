@@ -89,10 +89,14 @@ int    main()
 {
     int    seed;
     
-    __asm__ volatile ("rdtsc" : "=A" (seed));
-    std::srand(seed);
+#ifdef _WIN32
+	std::srand(time(NULL));
+#else
+	__asm__ volatile ("rdtsc" : "=A" (seed));
+	std::srand(seed);
+#endif
 
-    try
+	try
     {
         Menu menu;
         menu.launch();

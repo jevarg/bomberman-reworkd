@@ -699,7 +699,7 @@ void    Menu::readDir(const std::string &dirname)
 		char ch[260];
 		char DefChar = ' ';
 		do {
-			WideCharToMultiByte(CP_ACP, 0, data.cFileName, -1, ch, 260, &DefChar, NULL);
+			WideCharToMultiByte(CP_ACP, 0, (LPCWCH)data.cFileName, -1, ch, 260, &DefChar, NULL);
 			_filename.push_back(std::string(ch));
 		} while (FindNextFile(hFind, &data));
 		FindClose(hFind);

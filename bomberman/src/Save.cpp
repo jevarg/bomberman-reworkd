@@ -39,7 +39,7 @@ void		Save::checkDirectory(const std::string &path) const
   if (stat(path.c_str(), &st) == -1)
   {
 	# ifdef _WIN32
-	  CreateFile(reinterpret_cast<const wchar_t*>(path.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	  CreateFile(reinterpret_cast<LPCSTR>(path.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	# else
 	  mkdir(path.c_str(), 0755);
 	# endif // WIN32

@@ -1,6 +1,12 @@
 .vs
 x64
+.scores
+bomberman/Resources
+*.dll
+Debug/
 *.sln
+*.vcxproj
+*.vcxproj.filters
 *.xcodeproj
 .DS_Store
 .gitignore~
