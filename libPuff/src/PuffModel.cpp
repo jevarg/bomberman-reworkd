@@ -16,7 +16,7 @@ namespace puff
     }
     
     bool Model::setCurrentAnim(int stack, bool loop) {
-        _loop = loop;
+        pause(!loop);
         return (_model->SetCurrentAnimStack(stack));
     }
     
@@ -33,7 +33,7 @@ namespace puff
     }
     
     float Model::getFrameDuration() {
-        return (1.0f);
+        return static_cast<float>(_model->GetFrameTime().GetSecondDouble());
     }
     
     bool Model::createSubAnim(int stack, const std::string &subAnimName, int frameStart, int frameEnd) {
@@ -55,6 +55,7 @@ namespace puff
     
     void Model::draw(puff::AShader &shader, const glm::mat4 &transform, double deltaTime) {
         _model->OnDisplay(&shader, transform);
+        _model->OnTimerClick();
     }
     
     void Model::removeFromManager()

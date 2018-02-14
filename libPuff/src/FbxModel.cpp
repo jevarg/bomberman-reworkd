@@ -375,10 +375,10 @@ namespace
 
 namespace puff
 {
-    FbxModel::FbxModel(const char * pFileName,bool pSupportVBO)
+    FbxModel::FbxModel(const char * pFileName, bool pSupportVBO)
     : mFileName(pFileName), mStatus(UNLOADED),
     mSdkManager(NULL), mScene(NULL), mImporter(NULL), mCurrentAnimLayer(NULL), mSelectedNode(NULL),
-    mPoseIndex(-1), mPause(false),
+    mPoseIndex(-1), mPause(true),
     mSupportVBO(pSupportVBO)
     {
         if (mFileName == NULL) {
@@ -588,31 +588,31 @@ namespace puff
         return true;
     }
     
-//    void FbxModel::OnTimerClick() const
-//    {
-//        // Loop in the animation stack if not paused.
-//        if (mStop > mStart && !mPause)
-//        {
-//            // Set the scene status flag to refresh
-//            // the scene in the next timer callback.
-//            mStatus = MUST_BE_REFRESHED;
-//
-//            mCurrentTime += mFrameTime;
-//
-//            if (mCurrentTime > mStop)
-//            {
-//                mCurrentTime = mStart;
-//            }
-//        }
-//        // Avoid displaying the same frame on
-//        // and on if the animation stack has no length.
-//        else
-//        {
-//            // Set the scene status flag to avoid refreshing
-//            // the scene in the next timer callback.
-//            mStatus = REFRESHED;
-//        }
-//    }
+    void FbxModel::OnTimerClick() const
+    {
+        // Loop in the animation stack if not paused.
+        if (mStop > mStart && !mPause)
+        {
+            // Set the scene status flag to refresh
+            // the scene in the next timer callback.
+            mStatus = MUST_BE_REFRESHED;
+
+            mCurrentTime += mFrameTime;
+
+            if (mCurrentTime > mStop)
+            {
+                mCurrentTime = mStart;
+            }
+        }
+        // Avoid displaying the same frame on
+        // and on if the animation stack has no length.
+        else
+        {
+            // Set the scene status flag to avoid refreshing
+            // the scene in the next timer callback.
+            mStatus = REFRESHED;
+        }
+    }
 
     // Redraw the scene
     bool FbxModel::OnDisplay(AShader *shader, const glm::mat4 &transform)
@@ -626,7 +626,7 @@ namespace puff
 //            glPushAttrib(GL_LIGHTING_BIT);
 //            glEnable(GL_DEPTH_TEST);
             // Draw the front face only, except for the texts and lights.
-//            glEnable(GL_CULL_FACE);
+            glEnable(GL_CULL_FACE);
             
             // Set the view to the current camera settings.
             //        SetCamera(mScene, mCurrentTime, mCurrentAnimLayer, mCameraArray,
@@ -664,6 +664,24 @@ namespace puff
         //    DisplayWindowMessage();
         
         return true;
+    }
+    
+    void FbxModel::SetSelectedNode(FbxNode * pSelectedNode)
+    {
+        mSelectedNode = pSelectedNode;
+        mStatus = MUST_BE_REFRESHED;
+    }
+    
+    int FbxModel::getAnimationDuration(const int &pIndex) const
+    {
+        FbxAnimStack * lCurrentAnimationStack = mScene->FindMember<FbxAnimStack>(mAnimStackNameArray[pIndex]->Buffer());
+        if (lCurrentAnimationStack == NULL)
+        {
+            // this is a problem. The anim stack should be found in the scene!
+            return 0;
+        }
+
+        return (lCurrentAnimationStack->GetLocalTimeSpan().GetDuration().GetSecondCount());
     }
     
 //    void FbxModel::OnReshape(int pWidth, int pHeight)
@@ -811,13 +829,7 @@ namespace puff
 //            break;
 //        }
 //    }
-    
-    void FbxModel::SetSelectedNode(FbxNode * pSelectedNode)
-    {
-        mSelectedNode = pSelectedNode;
-        mStatus = MUST_BE_REFRESHED;
-    }
-
+//
 //    void FbxModel::DisplayWindowMessage()
 //    {
 //        glColor3f(1.0, 1.0, 1.0);
