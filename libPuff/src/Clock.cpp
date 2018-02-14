@@ -16,7 +16,7 @@ namespace puff {
     void Clock::update(double currentTime)
     {
         _oldTime = _curTime;
-        _curTime = currentTime;
+		_curTime = currentTime;
     }
     
     double Clock::getElapsed() const

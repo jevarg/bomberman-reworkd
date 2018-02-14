@@ -8,8 +8,8 @@ namespace    puff
     class Clock
     {
     private:
-        double _oldTime;
-        double _curTime;
+		double _oldTime;
+		double _curTime;
         
     public:
         Clock();

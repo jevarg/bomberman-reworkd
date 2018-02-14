@@ -1,4 +1,4 @@
-#include "Model.hpp"
+#include "PuffModel.hpp"
 
 namespace puff
 {

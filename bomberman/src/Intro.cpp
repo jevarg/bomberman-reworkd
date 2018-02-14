@@ -98,7 +98,11 @@ bool Intro::nextFrame()
 bool Intro::update(puff::SdlContext &win, puff::Clock &clock, Input &input, Settings &set)
 {
   input.getInput(set);
-  usleep(30.0 * 1000);
+  #ifdef _WIN32
+	 Sleep(30.0);
+  #else
+	usleep(30.0 * 1000);
+  #endif
   if (!nextFrame() || input.isPressed(SDLK_SPACE))
     return (false);
   win.updateClock(clock);

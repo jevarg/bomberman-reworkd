@@ -37,7 +37,13 @@ void		Save::checkDirectory(const std::string &path) const
   struct stat	st;
 
   if (stat(path.c_str(), &st) == -1)
-    mkdir(path.c_str(), 0755);
+  {
+	# ifdef _WIN32
+	  CreateFile(reinterpret_cast<const wchar_t*>(path.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	# else
+	  mkdir(path.c_str(), 0755);
+	# endif // WIN32
+  }
 }
 
 void		Save::saveGame(const Map &map, const Settings &settings,

@@ -1,6 +1,7 @@
 #ifndef _CONDVAR_HPP_
 # define _CONDVAR_HPP_
 
+# define HAVE_STRUCT_TIMESPEC
 # include <pthread.h>
 
 class Condvar

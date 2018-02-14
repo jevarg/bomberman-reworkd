@@ -27,10 +27,12 @@ namespace puff
         {
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+#ifndef WIN32
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+#endif // !WIN32
             SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-
+            
             // Create OpenGL context
             _glContext = SDL_GL_CreateContext(_window);
             
@@ -44,14 +46,13 @@ namespace puff
             {
                 // Initialize glew
                 GLenum err = glewInit();
+                std::cout << "GLEW Initialized" << std::endl;
                 if (err != GLEW_OK)
                 {
                     //Problem: glewInit failed, something is seriously wrong.
                     fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
                     return (false);
                 }
-                
-                std::cout << "GLEW version: " << GLEW_VERSION << "." << GLEW_VERSION_MAJOR << "." << GLEW_VERSION_MINOR << "." << GLEW_VERSION_MICRO << " initialized" << std::endl;
                 std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl << std::endl;
                 
                 glEnable(GL_DEPTH_TEST);
@@ -64,13 +65,13 @@ namespace puff
     // Update the inputs
     void    SdlContext::updateInputs(Input &input) const
     {
-
+        
     }
     
     // Update the game clock
     void    SdlContext::updateClock(Clock &clock) const
     {
-        double currentTime = SDL_GetTicks();
+        unsigned int currentTime = SDL_GetTicks();
         clock.update(currentTime);
     }
     
@@ -78,13 +79,13 @@ namespace puff
     void    SdlContext::flush() const
     {
         SDL_GL_SwapWindow(_window);
-//        SDL_Event event;
-//        while (SDL_PollEvent(&event))
-//        {
-//            if (event.type == SDL_QUIT ||
-//                event.type == SDL_KEYDOWN)
-//                loop = false;
-//        }
+        //        SDL_Event event;
+        //        while (SDL_PollEvent(&event))
+        //        {
+        //            if (event.type == SDL_QUIT ||
+        //                event.type == SDL_KEYDOWN)
+        //                loop = false;
+        //        }
     }
     
     // Close the context and the window

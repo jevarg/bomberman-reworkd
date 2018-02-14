@@ -17,6 +17,15 @@
 #include "Camera.hpp"
 #include "Input.hpp"
 
+#ifdef _WIN32
+FILE _iob[] = { *stdin, *stdout, *stderr };
+
+extern "C" FILE * __cdecl __iob_func(void)
+{
+    return _iob;
+}
+#endif // WIN32
+
 //int    main()
 //{
 //    puff::SdlContext *context = new puff::SdlContext();
@@ -79,10 +88,9 @@
 int    main()
 {
     int    seed;
-
+    
     __asm__ volatile ("rdtsc" : "=A" (seed));
     std::srand(seed);
-
 
     try
     {

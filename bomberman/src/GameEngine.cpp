@@ -38,7 +38,11 @@ GameEngine::~GameEngine()
   if (_player2)
     _player2->setDestroyAttr();
   _gameInfo->condvar->broadcast();
+#ifdef _WIN32
+  Sleep(1000);
+#else
   sleep(1);
+#endif
   delete _gameInfo->condvar;
   delete _gameInfo->save;
   delete _gameInfo->mutex;
@@ -132,7 +136,13 @@ bool		GameEngine::update()
       elapsedTime = 0;
     }
   if (time < fps)
-    usleep((fps - time) * 1000);
+  {
+  }
+#ifdef _WIN32
+  Sleep(fps - time);
+#else
+  usleep((fps - time) * 1000);
+#endif
   _win->updateClock(*_gameInfo->clock);
   return (true);
 }
