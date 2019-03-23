@@ -9,4 +9,5 @@ Debug/
 *.vcxproj.filters
 *.xcodeproj
 .DS_Store
-.gitignore~
+*~
+build

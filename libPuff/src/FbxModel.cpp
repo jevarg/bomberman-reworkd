@@ -382,7 +382,8 @@ namespace puff
     mSupportVBO(pSupportVBO)
     {
         if (mFileName == NULL) {
-            throw new Exception("No file name given");
+            std::cerr << "No file name given" << std::endl;
+            throw new std::exception();
         }
         
         // initialize cache start and stop time

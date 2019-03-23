@@ -14,7 +14,7 @@
 
 #include <iostream>
 #include <fbxsdk.h>
-#include "Exception.hpp"
+#include <exception>
 #include "AShader.hpp"
 
 //class DrawText;
